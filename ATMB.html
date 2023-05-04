@@ -171,7 +171,7 @@
 
         <p>In order to get the run metrics in to a useful form, we will use an <a href="https://tleonardi.github.io/pycoQC/" target="_blank" style="color: #0881c2">pycoQC</a> to produce a range of plots in a HTML output, which we will use to judge the quality of the sequencing run. Something to note, is that in this activity we will only use a small subset of the sequenced reads, or else the analysis would take all day. This subsetting means that the sequencing telemetry may look inconsistent, when compared to a full run.<p>
 
-       <pre><code>pycoQC -f ~/data/ATMB/basecalling/fastq/sequencing_summary.txt -o pycoqc_results.html</pre></code>
+       <pre><code>pycoQC -f ~/data/ATMB/basecalling/fastq/.sequencing_summary.txt -o pycoqc_results.html</pre></code>
 
        <div class="alert alert-primary">
           After executing the command you should find a file called 'pycoqc_results.html'. Open them up in the file manager or in the terminal (with the below command) and inspect some of the plots and see what you can find out. As mentioned, the data here are only a small subset of reads, so some of the plots are incomplete. But this should give you a good idea of how this analysis should look.
@@ -188,7 +188,7 @@
             <div class="card">
               <div class = "card-header alert-warning"><strong>Approximately how long did the sequencing run take?</strong></div>
           <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne">
-                  1-5 hours
+                  5.9 hours
             </div>
             <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
               <div class="card-body alert-danger">
@@ -196,7 +196,7 @@
               </div>
             </div>
                 <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo">
-                  0.7 hours
+                  10.09 hours
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
               <div class="card-body alert-success">
@@ -213,7 +213,7 @@
             <div class="card">
               <div class = "card-header alert-warning"><strong>What is the <a href="#" title="N50" data-toggle="popover" data-trigger="hover" data-placement="top"  data-content="N50 can be described as a weighted median statistic such that 50% of the entire assembly is contained in contigs or scaffolds equal to or larger than this value.">N50</a> of the <b>passed reads (>Q7)</b> for all basecalled reads in this run?</strong></div>
           <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree">
-                N50= 636 bp
+                N50= 9320 bp
             </div>
             <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
               <div class="card-body alert-success">
@@ -234,9 +234,9 @@
 
         <p>Nanopore library preparation results in the addition of a sequencing adapter at each end of the fragment. Both the template and complement strands to be sequenced carry the motor protein which means both strands are able to translocate the nanopore. For downstream analysis, it is important to remove these adapters. For this we will use <a href="https://github.com/rrwick/Porechop" target="_blank" style="color: #0881c2">Porechop</a>. This program processes all of the reads in our basecalled fastq file, and removes these adapter sequences. Furthermore, the ligation library prep process can result in conjoined reads, meaning an adapter will be found in the middle of an extra-long read. Porechop will identify these, split them and remove the adapters. In addition, if you use a multiplexing kit to maximise sample throughput, this program will split the reads based on the molecular barcode added to each sample. Our dataset only has one sample, so this demultiplexing won't be necessary. </p>
         <br>
-        <p><strong>Let's launch porechop and remove the adapters from the basecalled fastq file:</strong></p>
+        <p><strong>Let's launch porechop and remove the adapters from the basecalled fastq files. The RAP and DMSO files have already been done for you. Launch the command below to run porechop on the WT dataset:</strong></p>
         <br>
-        <pre><code>porechop -i ~/data/ATMB/basecalling/fastq/pass/*.fastq.gz -o basecalled_reads.porechop.fastq</pre></code>
+        <pre><code>porechop -i ~/data/ATMB/basecalling/fastq/WT.fastq.gz -o WT.porechop.fastq</pre></code>
 
 <br>
         <h4>Kraken QC</h4>
@@ -253,12 +253,12 @@
         <p>Kraken – calling the Kraken executable<p>
         <p>kraken --db ~/data/ATMB/kraken/KDB/ - this points kraken to a vast sequence database of relevant microorganisms to cross-check our reads against<p>
         <p>--output temp.krak – this argument locates the output file<p>
-        <p>basecalled_reads.porechop.fastq – this argument locates the input file
+        <p>WT.porechop.fastq.gz – this argument locates the input file
         </p>
 
-        <p><strong>Type the following command in to the terminal to unleash the Kraken:</strong></s></p>
+        <p><strong>As before, to save time, we will run Kraken on only one sample. Type the following command in to the terminal to unleash the Kraken:</strong></s></p>
 
-        <pre><code>kraken --db ~/data/ATMB/kraken/KDB/ --output temp.krak ~/data/ATMB/kraken/basecalled_reads.porechop.fastq</pre></code>
+        <pre><code>kraken --db ~/data/ATMB/kraken/KDB/ --output temp.krak ~/data/ATMB/basecalling/fastq/WT.fastq.gz</pre></code>
 
         <img src="img/kraken_1.png" class="img-fluid" alt="Responsive image">
 
