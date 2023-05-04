@@ -125,11 +125,11 @@
 
 
 
-        <p>Activate the relevant environment, navigate to the <i>~/data/nanopore_activity/basecalling</i> folder in the home directory, and we’ll start the first step.<p>
+        <p>Activate the relevant environment, navigate to the <i>~/data/ATMB/basecalling</i> folder in the home directory, and we’ll start the first step.<p>
 
         <pre>conda activate nanopore</pre>
 
-        <pre><code>cd ~/data/nanopore_activity/basecalling/raw_fast5_reads/ </pre></code>
+        <pre><code>cd ~/data/ATMB/basecalling/raw_fast5_reads/ </pre></code>
 
         <div class="alert alert-warning">
           <p>Use the <kbd>ls</kbd> command to see what is inside this folder. Use <kbd>head</kbd> to preview one of the <i>fast5</i> files. As you might find, it's completely unreadable. This is because at this stage, the data is in a binary format representing the <i>squiggle</i> signal we spoke about previously. We need to basecall this data before we can use it.</p>
@@ -140,7 +140,7 @@
         <p><strong>Hover over the different elements of the basecalling command to see its function. Copy the whole line in to the terminal and execute the command:</strong><p>
 
 
-        <pre><code><a href="#" title="guppy_basecaller" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This is first command to call the main guppy executable.">guppy_basecaller</a> <a href="#" title="Basecalling configuration file" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This is the pre-trained model used for basecalling.<br><b>dna_r9.4.1_450bps_fast.cfg</b> is the model we will use in this case. However there are numerous models available depending on the flowcell used and the sequencing chemistry of the kit. <b>dna_r9.4.1</b> designates that we are using DNA basecalling with the R9.4 flowcell. <b>450bps</b> denotes the motor protein chemistry used for sequencing. This is unique to each kit used, so be sure to chose the correct one. <b>fast</b> denotes the complexity of the basecalling model to be used. The options are usually <b>fast</b>, <b>hac<b/> (high accuracy) or <b>sup</b> (super-high accuracy), the latter two of which are only suitable for machines with GPU resources.">--config dna_r9.4.1_450bps_fast.cfg</a> <a href="#" title="--trim_adapters" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller to automatically remove the sequencing adapter sequences.">--trim_adapters</a><a href="#" title="--trim_adapters" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller to search for the barcode sequences so that it can subset the reads."> --detect_barcodes</a> <a href="#" title="--compress_fastq " data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller to compress the outputted fastq files so that they consume less disk space.">--compress_fastq </a> <a href="#" title=">--input_path" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller where to find the raw fat5 files">--input_path ~/data/ATMB/basecalling/raw_fast5_reads </a> <a href="#" title="--save_path" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller where to save the compressed fastq output files">--save_path ~/data/nanopore_activity/basecalling/fastq </a></code></pre>
+        <pre><code><a href="#" title="guppy_basecaller" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This is first command to call the main guppy executable.">guppy_basecaller</a> <a href="#" title="Basecalling configuration file" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This is the pre-trained model used for basecalling.<br><b>dna_r9.4.1_450bps_fast.cfg</b> is the model we will use in this case. However there are numerous models available depending on the flowcell used and the sequencing chemistry of the kit. <b>dna_r9.4.1</b> designates that we are using DNA basecalling with the R9.4 flowcell. <b>450bps</b> denotes the motor protein chemistry used for sequencing. This is unique to each kit used, so be sure to chose the correct one. <b>fast</b> denotes the complexity of the basecalling model to be used. The options are usually <b>fast</b>, <b>hac<b/> (high accuracy) or <b>sup</b> (super-high accuracy), the latter two of which are only suitable for machines with GPU resources.">--config dna_r9.4.1_450bps_fast.cfg</a> <a href="#" title="--trim_adapters" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller to automatically remove the sequencing adapter sequences.">--trim_adapters</a><a href="#" title="--trim_adapters" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller to search for the barcode sequences so that it can subset the reads."> --detect_barcodes</a> <a href="#" title="--compress_fastq " data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller to compress the outputted fastq files so that they consume less disk space.">--compress_fastq </a> <a href="#" title=">--input_path" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller where to find the raw fat5 files">--input_path ~/data/ATMB/basecalling/raw_fast5_reads </a> <a href="#" title="--save_path" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller where to save the compressed fastq output files">--save_path ~/data/ATMB/basecalling/fastq </a></code></pre>
 
         <div class="alert alert-warning">
           Hover over the basecalling model 'dna_r9.4.1_450bps_fast.cfg' in the above command to see an explanation. You can navigate to <kbd>/opt/ont/data</kbd> to see all of the models available for use. Alternatively, for simplicity, you can use the <kbd>--kit</kbd> and  <kbd>--flowcell</kbd> flags instead of defining a model. However, by default, using these arguments do not apply the most accurate basecalling models available.
@@ -156,7 +156,7 @@
 
 
 
-        <pre><code>cd ~/data/nanopore_activity/basecalling/fastq/pass</pre></code>
+        <pre><code>cd ~/data/ATMB/basecalling/fastq/pass</pre></code>
 
         <div class="alert alert-warning">
           <p>Use the <kbd>ls</kbd> command to see what is inside this folder. This directory holds the fastq formatted 'pass' reads  from the basecalling process. The reads have a quality score > 7. Use <kbd> <a href="#" title="zcat" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="zcat is used in the same way as the cat command, except it is capabale of opening gzip compressed files">zcat</a> | head</kbd> to preview the compresssed <i>fastq</i> file. Unlike the fast5 files, these are human-readable and contain all of the read data required for downstream analyses. Can you identify any of the common elements of a .fastq format files - similar to the ones you may have encountered in previous sessions? Click <a href="https://en.wikipedia.org/wiki/FASTQ_format" target="_blank" style="color: #0881c2">here</a> to find out more about the FASTQ format.</p>
@@ -171,13 +171,13 @@
 
         <p>In order to get the run metrics in to a useful form, we will use an <a href="https://tleonardi.github.io/pycoQC/" target="_blank" style="color: #0881c2">pycoQC</a> to produce a range of plots in a HTML output, which we will use to judge the quality of the sequencing run. Something to note, is that in this activity we will only use a small subset of the sequenced reads, or else the analysis would take all day. This subsetting means that the sequencing telemetry may look inconsistent, when compared to a full run.<p>
 
-       <pre><code>pycoQC -f ~/data/nanopore_activity/basecalling/fastq/sequencing_summary.txt -o pycoqc_results.html</pre></code>
+       <pre><code>pycoQC -f ~/data/ATMB/basecalling/fastq/sequencing_summary.txt -o pycoqc_results.html</pre></code>
 
        <div class="alert alert-primary">
           After executing the command you should find a file called 'pycoqc_results.html'. Open them up in the file manager or in the terminal (with the below command) and inspect some of the plots and see what you can find out. As mentioned, the data here are only a small subset of reads, so some of the plots are incomplete. But this should give you a good idea of how this analysis should look.
         </div>
 
-        <pre><code>firefox ~/data/nanopore_activity/basecalling/fastq/pass/pycoqc_results.html</pre></code>
+        <pre><code>firefox ~/data/ATMB/basecalling/fastq/pass/pycoqc_results.html</pre></code>
 
         <p>Before continuing, quit firefox by clicking the X in the top right corner of the web-browser window.<p>
 
@@ -236,7 +236,7 @@
         <br>
         <p><strong>Let's launch porechop and remove the adapters from the basecalled fastq file:</strong></p>
         <br>
-        <pre><code>porechop -i ~/data/nanopore_activity/basecalling/fastq/pass/*.fastq.gz -o basecalled_reads.porechop.fastq</pre></code>
+        <pre><code>porechop -i ~/data/ATMB/basecalling/fastq/pass/*.fastq.gz -o basecalled_reads.porechop.fastq</pre></code>
 
 <br>
         <h4>Kraken QC</h4>
@@ -247,18 +247,18 @@
         <p><strong>Let’s navigate to the kraken folder to begin the analysis:</strong></p>
 
 
-        <pre><code>cd ~/data/nanopore_activity/kraken</pre></code>
+        <pre><code>cd ~/data/ATMB/kraken</pre></code>
 
         <p>The following line of code is composed of these elements:<p>
         <p>Kraken – calling the Kraken executable<p>
-        <p>kraken --db ~/data/nanopore_activity/kraken/KDB/ - this points kraken to a vast sequence database of relevant microorganisms to cross-check our reads against<p>
+        <p>kraken --db ~/data/ATMB/kraken/KDB/ - this points kraken to a vast sequence database of relevant microorganisms to cross-check our reads against<p>
         <p>--output temp.krak – this argument locates the output file<p>
         <p>basecalled_reads.porechop.fastq – this argument locates the input file
         </p>
 
         <p><strong>Type the following command in to the terminal to unleash the Kraken:</strong></s></p>
 
-        <pre><code>kraken --db ~/data/nanopore_activity/kraken/KDB/ --output temp.krak ~/data/nanopore_activity/kraken/basecalled_reads.porechop.fastq</pre></code>
+        <pre><code>kraken --db ~/data/ATMB/kraken/KDB/ --output temp.krak ~/data/ATMB/kraken/basecalled_reads.porechop.fastq</pre></code>
 
         <img src="img/kraken_1.png" class="img-fluid" alt="Responsive image">
 
@@ -311,7 +311,7 @@
 
         <p><strong>Move to the mapping directory:</strong></p>
 
-        <pre><code>cd ~/data/nanopore_activity/mapping</pre></code>
+        <pre><code>cd ~/data/ATMB/mapping</pre></code>
 
 
         <p>Now we can use minimap2 to align our QC completed, porechopped reads. Minimap2 is an alignment tool specifically designed to map error-prone nanopore reads. You might have used an alignment too previously, such a BWA. You can find more information about this tool by clicking the link <a href="https://lh3.github.io/2018/04/02/minimap2-and-the-future-of-bwa" target="_blank" style="color: #0881c2">comparing the two alignment tools</a></p>
@@ -418,11 +418,11 @@
         Navigate to the ‘variant_calling’ folder and we’ll begin:
         </strong></p>
 
-        <pre><code>cd ~/data/nanopore_activity/variant_calling </code></pre>
+        <pre><code>cd ~/data/ATMB/variant_calling </code></pre>
 
         <p>We need to use Samtools, a versatile package you will be familiar with, to extract the depth statistics from the .bam alignment file we generated in the previous section. This will generate a file called ‘depth_statistics’.</p>
 
-        <pre><code>samtools depth ~/data/nanopore_activity/mapping/sorted.bam > depth_statistics</code></pre>
+        <pre><code>samtools depth ~/data/ATMB/mapping/sorted.bam > depth_statistics</code></pre>
 
         <p>Next, we will use the R statistical package to generate a plot based on the data samtools generated. Simply type ‘R’ in to the terminal to initialise the R interface. </p>
 
@@ -453,7 +453,7 @@
           Now that we know the coverage and depth, we can move on to the variant calling. For this, we will use a package called ‘bcftools’. Bcftools will look through the alignment and ‘call’ the positions which do not agree with the reference, count them and compile them in to a database called a VCF. Enter the following code in to the terminal to begin the process:
         </div>
 
-        <pre><code>bcftools mpileup -q 8 -B -I -Ou -f reference.fasta ~/data/nanopore_activity/mapping/sorted.bam | bcftools call -mv -Oz -o calls.vcf.gz</code></pre>
+        <pre><code>bcftools mpileup -q 8 -B -I -Ou -f reference.fasta ~/data/ATMB/mapping/sorted.bam | bcftools call -mv -Oz -o calls.vcf.gz</code></pre>
 
         <div><img src="img/variant_calling.gif" class="img-fluid" alt="Responsive image"></div>
 
