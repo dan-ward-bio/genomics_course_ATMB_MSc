@@ -320,9 +320,7 @@
 
 
 
-        <pre><code>minimap2 -ax map-ont ~/data/ATMB/basecalling/fastq/DMSO.porechop.fastq.gz > DMSO_alignment.sam</pre></code>
-
-        <div><img src="img/bwa_1" class="img-fluid" alt="Responsive image"></div>
+        <pre><code>minimap2 -ax map-ont ~/data/ATMB/mapping/Pknowlesi_A1H1_WT_DiCre.fa ~/data/ATMB/basecalling/fastq/DMSO.porechop.fastq > DMSO_alignment.sam</pre></code>
 
         <br>
 
@@ -334,20 +332,25 @@
 
         <pre><code>samtools sort DMSO_alignment.bam -o DMSO_sorted.bam</code></pre>
 
-
-
-
         <p>Finally we need to index the sorted bam file:</p>
 
         <pre><code>samtools index DMSO_sorted.bam</code></pre>
 
         <p><strong>Repeat each of the above mapping steps, from the first minimap2 command for the RAP and WT lines. Be sure to modify each command to have the correct input and output lines. </strong></p>
 
-        <p><strong>Now that we have successfully mapped the reads to a reference we can visualise them in IGV, to get a closer look at what our sequencing data looks like. We also add the GFF file for our genome. This contains all of the metadata, such as gene names, coding regions etc. </strong></p>
+        <p><strong>Now that we have successfully mapped the reads to a reference we can visualise them in IGV, to get a closer look at what our sequencing data looks like. We also add the GFF file for our genome. This contains all of the annotation metadata, such as gene names, coding regions etc. </strong></p>
+
+        <p><strong>The Integrative Genomics Viewer (IGV) is a high-performance, easy-to-use, interactive tool for the visual exploration of genomic data. It is a staple for the bioinformatician when assessing genome alignments from whole genome sequencing data. </strong></p>
 
         <br>
         <br>
+        <p>Open IGV from the terminal:
+        </p>
+        pre><code>igv</code></pre>
         <br>
+        <p>Go to the 'Genomes' dropdown at the top of the IGV window, load a genome from file, navigate to <b>/home/user/data/ATMB/mapping</b> by copying the bold name in to the 'File name' field.
+        </p>
+        <div><img src="img/igv_open.png" class="img-fluid" alt="Responsive image"></div>
         <br>
 
 
@@ -358,8 +361,6 @@
         <div><img src="img/tablet_2.gif" class="img-fluid" alt="Responsive image"></div>
 
         <br>
-
-        <p>You can take a closer look at the individual bases by zooming in, either by using the sliding bar on the ‘Home’ tab at the top of the screen or by using ‘Ctrl’+Mouse Scroll. The red squares in the ‘Variants’ view represent the mismatched reads. </p>
 
         <div class="alert alert-primary">
           An important aspect of an effective nanopore sequencing analysis is being able to differentiate between errors or low quality basecalls, and true SNPs. You can see that there are random errors dotted around the screen, like static on a TV. Do you notice that some positions in the alignment have a distinct vertical column of red squares. These are most likely the variants we are looking for, and the key to unlocking our sequence data. These columns represent positions which have a high frequency of basecalls which do not agree with the reference sequence.  It is unlikely that random errors will appear in such a manner, and so, in our next analysis we will use these high frequency variants to alter the reference sequence to build a new sequence, in a process called ‘variant calling’.
