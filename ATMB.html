@@ -375,19 +375,23 @@
         <div><img src="img/igv_snp.png" class="img-fluid" alt="Responsive image"></div>
         <br>
 
+        <p><b>Minimise the IGV window, leave the terminal which launched it open. Open a new terminal, activate the nanopore environment and move to the next steps.</b></p>
+
+
         <h4>Coverage, Depth and Variant Calling</h4>
 
         <br>
 
-
+        <pre><code>conda activate nanopore</code></pre>
+        
         <div class="alert alert-primary">
-          Variant calling is a process used to identify new genotypes based on the ‘differences’ found our read data. You will have used it in the previous mapping practical at the start of the course. In this case, we are going to be using the alignment you have just generated and compiling a database of SNPs, inferred from positions which have a majority allele which is different from the one found on the reference sequence.
+          Variant calling is a process used to identify new genotypes based on the ‘differences’ found our read data. In this case, we are going to be using the alignment you have just generated to compile a database of SNPs and indels, inferred from positions which have a majority allele which is different from the one found on the reference sequence.
         </div>
 
 
         <br>
         <p>
-        Before starting on variant calling, we first need to do one more QC step. This analysis will tell us how well our reads have aligned to the reference and how comprehensive our sequencing run was. Two key metrics are required for this: reference coverage and read depth. Read coverage tells us the percentage of the reference which has had sequencing reads aligned to it, which allows us to identify any regions that may have not been successfully sequenced. Depth is an equally as important metric: it tells us how many different reads have mapped to the same position. This is a particularly important statistic if you intend on doing variant calling, as regions with low depth may fall prey to false calls due to the random errors we have in our nanopore data. With a high enough read depth, we can be fairly sure that these errors will be ignored.
+        Before starting on variant calling, we first need to do one more QC step. This analysis will tell us how well our reads have aligned to the reference and how comprehensive our sequencing run was. Two key metrics are required for this: reference coverage and read depth. Read coverage tells us the percentage of the reference which has had sequencing reads aligned to it, which allows us to identify any regions that may have not been successfully sequenced. Depth is an equally as important metric: it tells us how many different reads have mapped to the same position. This is a particularly important statistic if you intend on doing variant calling, as regions with low depth may fall prey to false calls due to the random errors we have in our nanopore data. With a high enough read depth, we can be fairly sure that these errors will be ignored. If you find this confusing, think of the alignment as a 2-dimentional plot. The X-axis is the length of the genome, this relates to coverage. The depth is the Y-axis, how deep the reads are at a given position.
 
         </p>
 
@@ -401,9 +405,11 @@
 
         <pre><code>cd ~/data/ATMB/variant_calling </code></pre>
 
-        <p>We need to use Samtools, a versatile package you will be familiar with, to extract the depth statistics from the .bam alignment file we generated in the previous section. This will generate a file called ‘depth_statistics’.</p>
+        <p>We need to use Samtools, a versatile package used in all facets of genomics, to extract the depth statistics from the .bam alignment file we generated in the previous section. This will generate a file called ‘depth_statistics’. Samtools will scan across the alignment counting how many reads have mapped to each base in the genome.</p>
 
-        <pre><code>samtools depth ~/data/ATMB/mapping/sorted.bam > depth_statistics</code></pre>
+        <pre><code>samtools depth ~/data/ATMB/mapping/DMSO_sorted.bam > depth_statistics</code></pre>
+
+        <p>Take a look at the depth_statistics file using the <pre><code>head</code></pre> command.</p>
 
         <p>Next, we will use the R statistical package to generate a plot based on the data samtools generated. Simply type ‘R’ in to the terminal to initialise the R interface. </p>
 
