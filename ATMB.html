@@ -126,6 +126,7 @@
 
 
         <p>Activate the relevant environment, navigate to the <i>~/data/ATMB/basecalling</i> folder in the home directory, and we’ll start the first step.<p>
+        <p><b>IMPORTANT: Every time you open a new terminal window, you must re-activate the nanopore conda environment.</b>><p>
 
         <pre>conda activate nanopore</pre>
 
@@ -171,13 +172,13 @@
 
         <p>In order to get the run metrics in to a useful form, we will use an <a href="https://tleonardi.github.io/pycoQC/" target="_blank" style="color: #0881c2">pycoQC</a> to produce a range of plots in a HTML output, which we will use to judge the quality of the sequencing run. Something to note, is that in this activity we will only use a small subset of the sequenced reads, or else the analysis would take all day. This subsetting means that the sequencing telemetry may look inconsistent, when compared to a full run.<p>
 
-       <pre><code>pycoQC -f ~/data/ATMB/basecalling/fastq/.sequencing_summary.txt -o pycoqc_results.html</pre></code>
+       <pre><code>pycoQC -f ~/data/ATMB/basecalling/fastq/.sequencing_summary.txt -o ~/data/ATMB/basecalling/fastq/pycoqc_results.html</pre></code>
 
        <div class="alert alert-primary">
           After executing the command you should find a file called 'pycoqc_results.html'. Open them up in the file manager or in the terminal (with the below command) and inspect some of the plots and see what you can find out. As mentioned, the data here are only a small subset of reads, so some of the plots are incomplete. But this should give you a good idea of how this analysis should look.
         </div>
 
-        <pre><code>firefox ~/data/ATMB/basecalling/fastq/pass/pycoqc_results.html</pre></code>
+        <pre><code>firefox ~/data/ATMB/basecalling/fastq/pycoqc_results.html</pre></code>
 
         <p>Before continuing, quit firefox by clicking the X in the top right corner of the web-browser window.<p>
 
