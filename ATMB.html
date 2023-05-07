@@ -368,10 +368,11 @@
         <br>
 
         <div class="alert alert-primary">
-          An important aspect of an effective nanopore sequencing analysis is being able to differentiate between errors or low quality basecalls, and true SNPs. You can see that there are random errors dotted around the screen, like static on a TV. Do you notice that some positions in the alignment have a distinct vertical column of red squares. These are most likely the variants we are looking for, and the key to unlocking our sequence data. These columns represent positions which have a high frequency of basecalls which do not agree with the reference sequence.  It is unlikely that random errors will appear in such a manner, and so, in our next analysis we will use these high frequency variants to alter the reference sequence to build a new sequence, in a process called ‘variant calling’.
+          An important aspect of an effective nanopore sequencing analysis is being able to differentiate between errors, caused by the inherent error-prone nature of nanopore sequencing, and true SNPs. Configure IGV to the maximum zoom on the read view (top right corder slider). You should see something similar to the image below. You can see that there are random errors dotted around the read panel like static on a TV. Do you notice that some positions in the alignment will have multiple SNPs in the same location. These are possibly the variants we are looking for, and the key to unlocking our sequence data. These columns represent positions which have a high frequency of basecalls which do not agree with the reference sequence. It is unlikely that random errors will appear in such a manner, and so, in our next analysis we will use a program to scan our alignment and identify these high frequency variants in a process called ‘variant calling’.
         </div>
 
         <br>
+        <div><img src="img/igv_snp.png" class="img-fluid" alt="Responsive image"></div>
         <br>
 
         <h4>Coverage, Depth and Variant Calling</h4>
