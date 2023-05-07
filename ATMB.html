@@ -354,12 +354,17 @@
         <br>
 
 
-        <p><strong>One of the foremost caveats of nanopore sequencing is the high error rate. It is important that we use programs which are sensitive to that - which is why we used the 'ont2d' argument in the mapping stage. All of the </strong> </p>
+        <p><strong>Now that you have loaded the reference genome, the BAM read alignment and the GFf annotation track, your IGV window should look a little bit like the image below. Explore the functions of IGV and explore the Pk A1H1 genome. </strong> </p>
 
         <br>
 
-        <div><img src="img/igv_loaded.png" class="img-fluid" alt="Responsive image"></div>
+        <div><img src="img/igv_diagram.png" class="img-fluid" alt="Responsive image"></div>
 
+        <div class="alert alert-primary">
+            If you are curious how GFF annotations work, you can view the raw data by entering the below command in to a new terminal window. The <pre><code>head</code></pre> command will show the first 10 lines of content of a given filename in the terminal windoww, providing it is human readable text, and not binary or compressed data.
+          </div>
+
+          <pre><code>head  ~/data/ATMB/mapping/PknowlesiA1H1.gff </code></pre>
         <br>
 
         <div class="alert alert-primary">
@@ -405,7 +410,7 @@
 
         <div><img src="img/depth.png" class="img-fluid" alt="Responsive image"></div>
 
-        <p>Once you have initialised R, you can enter the following two lines of code, one after the other. The first command will load the ‘ depth_statistics’ file, and the second will generate the plot</p>
+        <p>Once you have initialised R, you can enter the following two lines of code, one after the other. The first command will load the ‘depth_statistics’ file, and the second will generate the plot</p>
 
         <pre><code>data<-read.table("depth_statistics")</code></pre>
         <pre><code>plot(data$V3,type="l",xlab="Reference Position", ylab="read Depth")</code></pre>
