@@ -354,17 +354,17 @@
         <br>
 
 
-        <p><strong>Now that you have loaded the reference genome, the BAM read alignment and the GFf annotation track, your IGV window should look a little bit like the image below. Explore the functions of IGV and explore the Pk A1H1 genome. </strong> </p>
+        <p><strong>Now that you have loaded the reference genome, the BAM read alignment and the GFF annotation track, your IGV window should look a little bit like the image below. Explore the functions of IGV and browse the Pk A1H1 genome. </strong> </p>
 
         <br>
 
         <div><img src="img/igv_diagram.png" class="img-fluid" alt="Responsive image"></div>
 
         <div class="alert alert-primary">
-            If you are curious how GFF annotations work, you can view the raw data by entering the below command in to a new terminal window. The <pre><code>head</code></pre> command will show the first 10 lines of content of a given filename in the terminal windoww, providing it is human readable text, and not binary or compressed data.
+            If you are curious how GFF annotations work, you can view the raw data by entering the below command in to a new terminal window. The <pre><code>head -n 100</code></pre> command will show the first 100 lines of content of a given filename in the terminal windoww, providing it is human readable text, and not binary or compressed data. To learn more about the GFF format, follow <a href="https://www.ensembl.org/info/website/upload/gff.html">this link</a>
           </div>
 
-          <pre><code>head  ~/data/ATMB/mapping/PknowlesiA1H1.gff </code></pre>
+          <pre><code>head -n 100 ~/data/ATMB/mapping/PknowlesiA1H1.gff </code></pre>
         <br>
 
         <div class="alert alert-primary">
