@@ -338,6 +338,8 @@
 
         <p><strong>Repeat each of the above mapping steps, from the first minimap2 command for the RAP and WT lines. Be sure to modify each command to have the correct input and output lines. </strong></p>
 
+        <h4>Visualisation using IGV</h4>
+
         <p><strong>Now that we have successfully mapped the reads to a reference we can visualise them in IGV, to get a closer look at what our sequencing data looks like. We also add the GFF file for our genome. This contains all of the annotation metadata, such as gene names, coding regions etc. </strong></p>
 
         <p><strong>The Integrative Genomics Viewer (IGV) is a high-performance, easy-to-use, interactive tool for the visual exploration of genomic data. It is a staple for the bioinformatician when assessing genome alignments from whole genome sequencing data. </strong></p>
@@ -348,7 +350,7 @@
         </p>
         <pre><code>igv</code></pre>
         <br>
-        <p>Go to the 'Genomes' dropdown at the top of the IGV window, load a genome from file, navigate to <b>/home/user/data/ATMB/mapping</b> by copying the bold name in to the 'File name' field. From the 'File' dropdown, open your sorted and indexed BAM file from the mapping steps by choosing 'Load from file', and navigate to the same mapping directory and choose, for example, 'DMSO_sorted.bam'. Finally, from the same directory and menu, open 'PknowlesiA1H1.gff'.
+        <p>Go to the 'Genomes' dropdown at the top of the IGV window, load a genome from file, navigate to <b>/home/user/data/ATMB/mapping</b> by copying the bold text in to the 'File name' field. From the 'File' dropdown, open your sorted and indexed BAM file from the mapping steps by choosing 'Load from file', and navigate to the same mapping directory and choose, for example, 'DMSO_sorted.bam'. Finally, from the same directory and menu, open 'PknowlesiA1H1.gff'.
         </p>
         <div><img src="img/igv_open.png" class="img-fluid" alt="Responsive image"></div>
         <br>
@@ -375,7 +377,7 @@
         <div><img src="img/igv_snp.png" class="img-fluid" alt="Responsive image"></div>
         <br>
 
-        <p><b>Minimise the IGV window, leave the terminal which launched it open. Open a new terminal, activate the nanopore environment and move to the next steps.</b></p>
+        <p><b>Minimise the IGV window, leave open the terminal which launched it. Open a new terminal, activate the nanopore environment and move to the next steps.</b></p>
 
 
         <h4>Coverage, Depth and Variant Calling</h4>
@@ -401,31 +403,15 @@
 
         <pre><code>cd ~/data/ATMB/variant_calling </code></pre>
 
-        <p>We need to use Samtools, a versatile package used in all facets of genomics, to extract the depth statistics from the .bam alignment file we generated in the previous section. This will generate a file called ‘depth_statistics’. Samtools will scan across the alignment counting how many reads have mapped to each base in the genome.</p>
+        <p>We will use a variant caller called <a href="https://github.com/freebayes/freebayes">freebayes</a>. Freebayes is a Bayesian genetic variant detector designed to find small polymorphisms, specifically SNPs (single-nucleotide polymorphisms), indels (insertions and deletions), MNPs (multi-nucleotide polymorphisms), and complex events (composite insertion and substitution events) smaller than the length of a short-read sequencing alignment.</p>
 
-        <pre><code>samtools depth ~/data/ATMB/mapping/DMSO_sorted.bam > depth_statistics</code></pre>
-
-        <p>Take a look at the depth_statistics file using the <pre><code>head</code></pre> command.</p>
-
-
-
-        <br>
-
-
-
-        <div class="alert alert-primary">
-          Now that we know the coverage and depth, we can move on to the variant calling. For this, we will use a package called ‘bcftools’. Bcftools will look through the alignment and ‘call’ the positions which do not agree with the reference, count them and compile them in to a database called a VCF. Enter the following code in to the terminal to begin the process:
-        </div>
-
-        <pre><code>bcftools mpileup -q 8 -B -I -Ou -f reference.fasta ~/data/ATMB/mapping/sorted.bam | bcftools call -mv -Oz -o calls.vcf.gz</code></pre>
-
-        <div><img src="img/variant_calling.gif" class="img-fluid" alt="Responsive image"></div>
+        <pre><code>freebayes -f ~/data/ATMB/mapping/Pknowlesi_A1H1_WT_DiCre.fa ~/data/ATMB/mapping/DMSO_sorted.bam > DMSO_variants.vcf </code></pre>
 
         <br>
 
         <p>Let's take a look inside the VCF file to see what kind of data it contains:</p>
 
-        <pre><code>zless calls.vcf.gz</code></pre>
+        <pre><code>head -n 50 DMSO_variants.vcf </code></pre>
 
 
 
@@ -460,7 +446,21 @@
 
         <br>
         <br>
+        <p>We need to use Samtools, a versatile package used in all facets of genomics, to extract the depth statistics from the .bam alignment file we generated in the previous section. This will generate a file called ‘depth_statistics’. Samtools will scan across the alignment counting how many reads have mapped to each base in the genome.</p>
 
+        <pre><code>samtools depth ~/data/ATMB/mapping/DMSO_sorted.bam > depth_statistics</code></pre>
+
+        <p>Take a look at the depth_statistics file using the <pre><code>head</code></pre> command.</p>
+
+
+
+        <br>
+
+
+
+        <div class="alert alert-primary">
+          Now that we know the coverage and depth in the <b>depth_statistics</b> file, we can move on to the variant calling. For this, we will use a package called ‘bcftools’. Bcftools will look through the alignment and ‘call’ the positions in the alignment which do not agree with the reference, count them and compile them in to a database called a VCF. The  Enter the following code in to the terminal to begin the process:
+        </div>
 
         <p>Next, we will use the R statistical package to generate a plot based on the data samtools generated. Simply type ‘R’ in to the terminal to initialise the R interface. </p>
 
