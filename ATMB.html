@@ -432,12 +432,42 @@
         <div><img src="img/igv_vcf.png" class="img-fluid" alt="Responsive image"></div>
 
 
+        <h4>Question 4</h4>
+        <div class="accordion" id="accordionExample">
+            <div class="card">
+              <div class = "card-header alert-warning"><strong>Are the SNPs in a coding region? Check the GFF track. Zoom out to about 50% if you have any doubts.</strong></div>
+          <div class="card-header" id="headingFive" data-toggle="collapse" data-target="#collapseFive">
+                  <i>Yes. It's MSP1.</i>
+            </div>
+            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+              <div class="card-body alert-danger">
+                <strong>False</strong>: Zoom out to 50% to see if you can notice another gene on the GFF track.
+              </div>
+            </div>
+                <div class="card-header" id="headingSix" data-toggle="collapse" data-target="#collapseSix">
+                  <i>No, it's not in a protein-coding region.</i>
+            </div>
+            <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+              <div class="card-body alert-success">
+                <strong>True</strong>: Right answer, well done! The closes gene is PKA1H_070011100.1.
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+
+        <div class="alert alert-primary">
+            Because we are working with a lab strain, there are likely few SNPs, as this reference is very closely related to the isolates we have sequenced. In future experiments however, it is very important to perform variant calling to identify possible genotypes that might confer drug resistance or SNPs that might be used for tracking transmission.
+          </div>
+
         <h4>Validation of PvDBP insertion</h4>
 
-        <p>Now load the other two BAMs in to IGV, using the same method you used to load the DMSO sample. Load the RAP.sorted.bam and the WT.sorted.bam files</p>
+        <p>Now load the other two BAMs you mapped in to IGV, using the same method you used to load the DMSO sample. Load the RAP.sorted.bam and the WT.sorted.bam files</p>
+
+        <p>In to the navigation form at the top of the IGV window, write <b>PKA1H_060029200</b>, this is a unique desegnation assigned to the Plasmodium knowlesi erythrocyte binding protein, the locus in the genome you have been working with throughout the module. You can find more information on this by visiting its <a herf="https://plasmodb.org/plasmo/app/record/gene/PKA1H_060029200">PlasmoDB</a> page.</p>
         
 
-
+        
 
 
 
