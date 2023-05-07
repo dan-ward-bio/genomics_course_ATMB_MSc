@@ -405,37 +405,26 @@
 
         <p>We will use a variant caller called <a href="https://github.com/freebayes/freebayes">freebayes</a>. Freebayes is a Bayesian genetic variant detector designed to find small polymorphisms, specifically SNPs (single-nucleotide polymorphisms), indels (insertions and deletions), MNPs (multi-nucleotide polymorphisms), and complex events (composite insertion and substitution events) smaller than the length of a short-read sequencing alignment.</p>
 
-        <pre><code>freebayes -f ~/data/ATMB/mapping/Pknowlesi_A1H1_WT_DiCre.fa ~/data/ATMB/mapping/DMSO_sorted.bam > DMSO_variants.vcf </code></pre>
+
+
+        <pre><code>freebayes -f ~/data/ATMB/mapping/Pknowlesi_A1H1_WT_DiCre.fa ~/data/ATMB/mapping/DMSO_sorted.bam -F 0.5 -C 10 -r LT727653:1014540-1076265 > DMSO_variants.vcf </code></pre>
 
         <br>
+        <strong>-F/strong> – This command tells the program the location of the reference file, so the procram can compare the alignment against it inorder to make the calls.<br>
 
-        <p>Let's take a look inside the VCF file to see what kind of data it contains:</p>
+        <strong>-F </strong> – specifies the minimum frequency of a call. To eliminate errors, we set this to 0.5. That means that 50% of the reads have to agree with a particular alternative allele (variant)<br>
+
+        <strong>-C</strong> – specifies the minimum read depth of a variant call. (More on this later)<br>
+
+        <strong>-r </strong> – specifies the region in the genome to be called. We can not perform variant calling on the whole genome bacause it would take a very long time, and a more powerful computer.<br>
+
+
+        <p>Once the variant callerhas finished, take a look inside the VCF file to see what kind of data it contains:</p>
 
         <pre><code>head -n 50 DMSO_variants.vcf </code></pre>
 
+        
 
-
-        <div class="alert alert-warning">
-          You can scroll down using the down-arrow key on your keyboard. Can you recall the common features of a VCF file? Press 'q' to quit the 'zless' program to continue with the activity:
-        </div>
-
-
-
-        <p>Next, we need to index the .vcf file:</p>
-
-        <pre><code>bcftools index calls.vcf.gz</code></pre>
-
-        <p><text>This next line of code will take the calls made in the VCF file and apply them to the reference sequence, changing it based of the differences observe in our reads:
-</p>
-        <pre><code>bcftools consensus -f reference.fasta calls.vcf.gz -o consensus_sequence.fasta</code></pre>
-
-        <div class="alert alert-danger" role="alert">
-          It is important to understand how the reference sequence can effect the consensus outcome. If unchecked, positions with zero coverage will default to reference. This will result in the experimental sequence becoming more like the reference than it actually is. We can use BEDtools mark positions with low coverage which BCFtools will use to mask the zero coverage positions with 'N's.
-        </div>
-
-        <div class="alert alert-primary">
-          You will now have a file called ‘consensus_sequence.fasta’. this contains the modified reference, a brand new sequences based on the sequence data we have been working with.
-        </div>
 
 
 
