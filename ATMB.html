@@ -395,11 +395,7 @@
 
         </p>
 
-        <p><strong>We will now use R to generate a plot to allow us to assess the coverage and depth.
-        </strong></p>
-
         <p><strong>
-
         Navigate to the ‘variant_calling’ folder and we’ll begin:
         </strong></p>
 
@@ -411,25 +407,6 @@
 
         <p>Take a look at the depth_statistics file using the <pre><code>head</code></pre> command.</p>
 
-        <p>Next, we will use the R statistical package to generate a plot based on the data samtools generated. Simply type ‘R’ in to the terminal to initialise the R interface. </p>
-
-        <pre><code>R</code></pre>
-
-        <div><img src="img/depth.png" class="img-fluid" alt="Responsive image"></div>
-
-        <p>Once you have initialised R, you can enter the following two lines of code, one after the other. The first command will load the ‘depth_statistics’ file, and the second will generate the plot</p>
-
-        <pre><code>data<-read.table("depth_statistics")</code></pre>
-        <pre><code>plot(data$V3,type="l",xlab="Reference Position", ylab="read Depth")</code></pre>
-
-        <div class="alert alert-warning">
-          Take a look at the plot you have just generated in R. Does the genome have adequate coverage and depth? What do you notice about the depth of the reads of nanopore generated data, as opposed to Illumina? Furthermore, why do you think there are these block-like increases and decreases in the depth? (Hint: how do you think these sequencing libraries were generated?)
-        </div>
-
-
-        <p>You can quit R by typing:</p>
-
-        <pre><code>quit()</code></pre>
 
 
         <br>
@@ -485,7 +462,25 @@
         <br>
 
 
+        <p>Next, we will use the R statistical package to generate a plot based on the data samtools generated. Simply type ‘R’ in to the terminal to initialise the R interface. </p>
 
+        <pre><code>R</code></pre>
+
+        <div><img src="img/depth.png" class="img-fluid" alt="Responsive image"></div>
+
+        <p>Once you have initialised R, you can enter the following two lines of code, one after the other. The first command will load the ‘depth_statistics’ file, and the second will generate the plot</p>
+
+        <pre><code>data<-read.table("depth_statistics")</code></pre>
+        <pre><code>plot(data$V3,type="l",xlab="Reference Position", ylab="read Depth")</code></pre>
+
+        <div class="alert alert-warning">
+          Take a look at the plot you have just generated in R. Does the genome have adequate coverage and depth? What do you notice about the depth of the reads of nanopore generated data, as opposed to Illumina? Furthermore, why do you think there are these block-like increases and decreases in the depth? (Hint: how do you think these sequencing libraries were generated?)
+        </div>
+
+
+        <p>You can quit R by typing:</p>
+
+        <pre><code>quit()</code></pre>
 
 
 
