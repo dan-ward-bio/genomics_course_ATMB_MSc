@@ -487,68 +487,65 @@
         <p>Right click the coverage plot for each BAM track and save the image to the user space. I will put a link up on the board for you to upload this image, so that you can include it as a figure in your manuscript write-up.</p>
 
 
+        <h4>Optional extra activity - mapping DMSO to Pknowlesi_A1H1_WT_DiCre_PvDBP pseudogenome </h4>
+
+        <p>Now that we have inferred the insertion of a floxed PvDBP into the PkDBPα locus and successful DiCre-mediated excision of the floxed region, we can confirm it by re-mapping our read data to a new reference sequence. This reference sequence contains the PvDBP ortholog gene insead of the WT PkDBP. In this section, you will repeat the above steps, but this time, using the Pknowlesi_A1H1_WT_DiCre_PvDBP.fa reference, which can be found in the 'mapping' folder. Importantly, you need to switch out the reference sequence when mapping, and be sure to change the names of the inputs and the output files to reflect that they are mapped against the PvDBP pseudogenome. Below is a hint to get you started:</p>
+
+        <pre><code>minimap2 -ax map-ont ~/data/ATMB/mapping/Pknowlesi_A1H1_WT_DiCre_PvDBP.fa ~/data/ATMB/basecalling/fastq/DMSO.porechop.fastq > DMSO_alignment_PvDBP.sam</pre></code>
+
+        <p>Once you have remapped the three sequence datasets, open up a new IGV window, load the correct Pknowlesi_A1H1_WT_DiCre_PvDBP.fa reference genome, the GFF and the three new PvDBP alignments and compare them with the other IGV window, with the wild-type alignments. What can you infer from the differences in the alignments?</p>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
+        <h4>Optional extra activity 2 - Generating coverage plots using R</h4>
 
 
         <p>
-            Before starting on variant calling, we first need to do one more QC step. This analysis will tell us how well our reads have aligned to the reference and how comprehensive our sequencing run was. Two key metrics are required for this: reference coverage and read depth. Read coverage tells us the percentage of the reference which has had sequencing reads aligned to it, which allows us to identify any regions that may have not been successfully sequenced. Depth is an equally as important metric: it tells us how many different reads have mapped to the same position. This is a particularly important statistic if you intend on doing variant calling, as regions with low depth may fall prey to false calls due to the random errors we have in our nanopore data. With a high enough read depth, we can be fairly sure that these errors will be ignored. If you find this confusing, think of the alignment as a 2-dimentional plot. The X-axis is the length of the genome, this relates to coverage. The depth is the Y-axis, how deep the reads are at a given position.
-    
+             Two key metrics are often required for asessing the success of sequenceing, and confirming the presence of any structural varaints such as those resulting from the excision of genes. These metrics are reference <b>coverage</b> and read <b>depth</b>. Genome coverage tells us the percentage of the reference which has had sequencing reads aligned to it, which allows us to identify any regions that may have not been successfully sequenced. Depth is an equally as important metric: it tells us how many inidividual reads have mapped to the same position. This is a particularly important statistic if you intend on doing variant calling, as regions with low depth may fall prey to false calls due to the random errors we have in our nanopore data. With a high enough read depth, we can be fairly sure that these errors will be ignored. If you find this confusing, think of the alignment as a 2-dimentional plot. The X-axis is the length of the genome, this relates to coverage. The depth is the Y-axis, how deep the reads are at a given position.
         </p>
         <br>
-        <p>We need to use Samtools, a versatile package used in all facets of genomics, to extract the depth statistics from the .bam alignment file we generated in the previous section. This will generate a file called ‘depth_statistics’. Samtools will scan across the alignment counting how many reads have mapped to each base in the genome.</p>
+        <p>A tool we can use to asess the depth and coverage of an alignment is Samtools; a versatile package used in all facets of genomics. We will extract the depth statistics from the .bam alignment file we generated in the previous sections. This will generate a file called ‘depth_statistics_XXXX’. Samtools will scan across the alignment counting how many reads have mapped to each base in the genome.</p>
 
-        <pre><code>samtools depth ~/data/ATMB/mapping/DMSO_sorted.bam > depth_statistics</code></pre>
+        <pre><code>samtools depth ~/data/ATMB/mapping/DMSO_sorted.bam > depth_statistics_DMSO</code></pre>
 
-        <p>Take a look at the depth_statistics file using the <pre><code>head</code></pre> command.</p>
+        <p>Take a look at the depth_statistics file using the head command. Repeat this process for all of your alignments, making sure to change the input and output names for the 'samdools depth' command.</p>
 
-
-
-        <br>
-
-
-
-        <div class="alert alert-primary">
-          Now that we know the coverage and depth in the <b>depth_statistics</b> file, we can move on to the variant calling. For this, we will use a package called ‘bcftools’. Bcftools will look through the alignment and ‘call’ the positions in the alignment which do not agree with the reference, count them and compile them in to a database called a VCF. The  Enter the following code in to the terminal to begin the process:
-        </div>
-
-        <p>Next, we will use the R statistical package to generate a plot based on the data samtools generated. Simply type ‘R’ in to the terminal to initialise the R interface. </p>
-
+        <p>Next, we will use the R statistical package to generate a plot based on the data samtools generated. Simply type ‘R’ in to the terminal to initialise the R command interface. </p>
+        <pre><code>conda activate nanopore</code></pre>
+        <pre><code>cd ~/data/ATMB/mapping</code></pre>
         <pre><code>R</code></pre>
 
         <div><img src="img/depth.png" class="img-fluid" alt="Responsive image"></div>
 
-        <p>Once you have initialised R, you can enter the following two lines of code, one after the other. The first command will load the ‘depth_statistics’ file, and the second will generate the plot</p>
+        <p>Once you have initialised R, you can enter the following lines of code by copying and pasting them in to the R terminal instance. <b>Be sure to change the bold sections in the below code to reflect the files you generated with samtools. Make sure the 'Dataset' names are replaced with the correct isolate name.</b></p>
 
-        <pre><code>data<-read.table("depth_statistics")</code></pre>
-        <pre><code>plot(data$V3,type="l",xlab="Reference Position", ylab="read Depth")</code></pre>
-
-        <div class="alert alert-warning">
-          Take a look at the plot you have just generated in R. Does the genome have adequate coverage and depth? What do you notice about the depth of the reads of nanopore generated data, as opposed to Illumina? Furthermore, why do you think there are these block-like increases and decreases in the depth? (Hint: how do you think these sequencing libraries were generated?)
-        </div>
-
+        <pre><code>
+            # Load the packages
+            library(gridExtra)
+            library(ggplot2)
+            
+            # Load the data
+            data1 <- read.table("depth_statistics_DMSO", sep="\t", header=FALSE, col.names=c("Contig","Position", "Depth"))
+            data2 <- read.table("depth_statistics_RAP", sep="\t", header=FALSE, col.names=c("Contig","Position", "Depth"))
+            data3 <- read.table("depth_statistics_RAP", sep="\t", header=FALSE, col.names=c("Contig","Position", "Depth"))
+            
+            # Create the plots
+            p1 <- ggplot(data1, aes(x=Position, y=Depth)) + geom_line(color="blue") + ggtitle("Dataset 1")
+            p2 <- ggplot(data2, aes(x=Position, y=Depth)) + geom_line(color="red") + ggtitle("Dataset 2")
+            p3 <- ggplot(data3, aes(x=Position, y=Depth)) + geom_line(color="green") + ggtitle("Dataset 3")
+            
+            # Combine the plots and adjust the layout
+            gridExtra::grid.arrange(p1, p2, p3, ncol=1)
+            
+            # Save plots to a PNG file
+            g <- arrangeGrob(p1, p2, p3, nrow=3)
+            ggsave(file="coverage_plt.png", g)
+        </code></pre>
 
         <p>You can quit R by typing:</p>
 
         <pre><code>quit()</code></pre>
+
+        <h4>Well done!</h4>
 
 
 
