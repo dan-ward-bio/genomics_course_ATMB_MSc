@@ -73,7 +73,7 @@
 
         <img src="img/picture_2.jpg" class="img-fluid" alt="Responsive image">
 
-        <p>A complete sequencing run on the MinION platform can generate upwards to of 1TB of raw data, and downstream analyses require a significant amount of compute power – multicore high performance processors and large amounts of RAM. This poses a significant logistical challenge for researchers who want to take advantage of the platform’s portability aspect. Over recent years, the integration of <a href="https://en.wikipedia.org/wiki/Graphics_processing_unit" target="_blank" style="color: #0881c2">GPUs</a> (graphics processing units) in to analysis workflows. <p>
+        <p>A complete sequencing run on the MinION platform can generate as much as 1 terabyte of raw data, and downstream analyses require a significant amount of compute power – multicore high performance processors and large amounts of RAM. This poses a significant logistical challenge for researchers who want to take advantage of the platform’s portability aspect. Over recent years, the integration of <a href="https://en.wikipedia.org/wiki/Graphics_processing_unit" target="_blank" style="color: #0881c2">GPUs</a> (graphics processing units) in to analysis workflows has sped up applications involving machine learning greatly. <p>
 
         <img src="img/pipeline_diagram.png" class="img-fluid" alt="Responsive image">
 
@@ -82,10 +82,10 @@
             <ol type="1">
                 <li>Basecall your data, transforming it from squiggle to bases.</li>
                 <li>Perform quality control on the data, ensuring our data is of sufficient quality for analysis.</li>
-                <li>Map the reads to a reference genome, producing three genomic alignment of our read sets.</li>
+                <li>Map the reads to a reference genome, producing three genomic alignments of our read sets.</li>
                 <li>Perform variant calling on each of our alignments.</li>
                 <li>Visualise the alignment and variant data in the IGV genome browser, to confirm insertion of a floxed PvDBP into the PkDBPα locus and successful DiCre-mediated excision of the floxed region. </li>
-                <li>Produce coverage plots of each region, which will be used as a figure fro your manuscript report.</li>
+                <li>Produce coverage plots of each region, which will be used as a figure for your manuscript report.</li>
 
               </ol>
 
@@ -413,11 +413,11 @@
 
         <pre><code>tail -n 3 DMSO_variants.vcf </code></pre>
 
-        <p>Check out <a href="https://www.internationalgenome.org/wiki/Analysis/Variant%20Call%20Format/vcf-variant-call-format-version-40/#:~:text=VCF%20is%20a%20text%20file,a%20position%20in%20the%20genome.">this page</a> to unserstand the structure of a VCF file</p>
+        <p>Check out <a href="https://www.internationalgenome.org/wiki/Analysis/Variant%20Call%20Format/vcf-variant-call-format-version-40/#:~:text=VCF%20is%20a%20text%20file,a%20position%20in%20the%20genome.">this page</a> to understand the structure of a VCF file</p>
 
         <p>Go back to IGV and load the VCF in to the window by navigating to the variant_calling folder through the <b>File>Load from file</b> menu, and selecting DMSO_variants.vcf</p>
 
-        <p>Navigate to the locus of the variant by copying <b>LT727654:329600-329632</b> in to the navigation form. You should see seomthing like that in the image below:</p>
+        <p>Navigate to the locus of the variant by copying <b>LT727654:329600-329632</b> in to the navigation form. You should see something like that in the image below:</p>
 
         <div><img src="img/igv_vcf.png" class="img-fluid" alt="Responsive image"></div>
 
