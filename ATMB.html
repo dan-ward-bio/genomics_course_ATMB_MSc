@@ -312,6 +312,8 @@
         <p><b>Mapping tools are not to be confused with other sequence alignment tools, such as clustalO or MUSCLE. These are designed for a totally different use case and input data. Using these will not work on whole-genome read data.</b></p>
         </div>
 
+        <img src="img/mapping_nanopore.png" class="img-fluid" alt="Responsive image">
+
         <p><strong>Move to the mapping directory:</strong></p>
 
         <pre><code>cd ~/data/ATMB/mapping</pre></code>
@@ -341,6 +343,10 @@
 
         <p><strong>Repeat each of the above mapping steps, from the first minimap2 command for the RAP and WT lines. Be sure to modify each command to have the correct input and output lines. </strong></p>
         <br>
+        <p>Samtools has a function to assess the quality of an alignment called <b>flagstat</b>. Issue the below command, being sure to run it on the <b>SAM</b> file from the first mapping step, and record the output for your manuscript. What do you make of the output? the percentage of mapped reads is less than 100%, why do you think that is? </p>
+
+        <pre><code>samtools flagstat DMSO_sorted.bam</code></pre>
+
         <br>
         <h4>Visualisation using IGV</h4>
 
@@ -396,10 +402,7 @@
 
 
         <br>
-        <p>
-        Before starting on variant calling, we first need to do one more QC step. This analysis will tell us how well our reads have aligned to the reference and how comprehensive our sequencing run was. Two key metrics are required for this: reference coverage and read depth. Read coverage tells us the percentage of the reference which has had sequencing reads aligned to it, which allows us to identify any regions that may have not been successfully sequenced. Depth is an equally as important metric: it tells us how many different reads have mapped to the same position. This is a particularly important statistic if you intend on doing variant calling, as regions with low depth may fall prey to false calls due to the random errors we have in our nanopore data. With a high enough read depth, we can be fairly sure that these errors will be ignored. If you find this confusing, think of the alignment as a 2-dimentional plot. The X-axis is the length of the genome, this relates to coverage. The depth is the Y-axis, how deep the reads are at a given position.
-
-        </p>
+ 
 
         <p><strong>
         Navigate to the ‘variant_calling’ folder and we’ll begin:
@@ -472,18 +475,44 @@
             <source src="./img/bam_track_sml.mov" type="video/mp4">
         </video>
 
-        <p>In to the navigation form at the top of the IGV window, write <b>PKA1H_060029200</b>, this is a unique desegnation assigned to the Plasmodium knowlesi erythrocyte binding protein, the locus in the genome you have been working with throughout the module. You can find more information on this by visiting its <a herf="https://plasmodb.org/plasmo/app/record/gene/PKA1H_060029200">PlasmoDB</a> page.</p>
+        <p>In to the navigation form at the top of the IGV window, enter <b>PKA1H_060029200</b>, this is a unique desegnation assigned to the Plasmodium knowlesi erythrocyte binding protein, the locus in the genome you have been working with throughout the module. You can find more information on this by visiting its <a herf="https://plasmodb.org/plasmo/app/record/gene/PKA1H_060029200">PlasmoDB</a> page.</p>
+        
+        <p>Here, you should be able to visualise all three of your alignments and compare them. What do you make of the coverage on each sample? Why do you think they appear in the way that they do?</p>
+
+        <div class="alert alert-primary">
+            <b>Optional activity</b><br>
+            When studying WGS data, you will often com across non-descript insertions. Althoguh we can prabably make a good guesss at what this is, we can investigate further to confirm our suspicions. Right click on one of the large insertions across the <b>PKA1H_060029200</b> locus in the <b>RAP</b> sample and copy the sequence data to your clipboard. Let's go to<a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi?PROGRAM=blastn&PAGE_TYPE=BlastSearch&LINK_LOC=blasthome">NCBI BLAST</a> and investigate what the origin of the sequence is. When you run BLAST, what does the output say, and does it match your prediction?
+        </div>
+
+        <p>Right click the coverage plot for each BAM track and save the image to the user space. I will put a link up on the board for you to upload this image, so that you can include it as a figure in your manuscript write-up.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         
 
-        
 
-
-
-
-
-
-
-        <br>
+        <p>
+            Before starting on variant calling, we first need to do one more QC step. This analysis will tell us how well our reads have aligned to the reference and how comprehensive our sequencing run was. Two key metrics are required for this: reference coverage and read depth. Read coverage tells us the percentage of the reference which has had sequencing reads aligned to it, which allows us to identify any regions that may have not been successfully sequenced. Depth is an equally as important metric: it tells us how many different reads have mapped to the same position. This is a particularly important statistic if you intend on doing variant calling, as regions with low depth may fall prey to false calls due to the random errors we have in our nanopore data. With a high enough read depth, we can be fairly sure that these errors will be ignored. If you find this confusing, think of the alignment as a 2-dimentional plot. The X-axis is the length of the genome, this relates to coverage. The depth is the Y-axis, how deep the reads are at a given position.
+    
+        </p>
         <br>
         <p>We need to use Samtools, a versatile package used in all facets of genomics, to extract the depth statistics from the .bam alignment file we generated in the previous section. This will generate a file called ‘depth_statistics’. Samtools will scan across the alignment counting how many reads have mapped to each base in the genome.</p>
 
