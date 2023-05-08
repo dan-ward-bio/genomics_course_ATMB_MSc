@@ -363,7 +363,7 @@
         <br>
 
         <div class="alert alert-primary">
-          An important aspect of an effective nanopore sequencing analysis is being able to differentiate between errors, caused by the inherent error-prone nature of nanopore sequencing, and true SNPs. Configure IGV to the maximum zoom on the read view (top right corder slider). You should see something similar to the image below. You can see that there are random errors dotted around the read panel like static on a TV. Do you notice that some positions in the alignment will have multiple SNPs in the same location. These are possibly the variants we are looking for, and the key to unlocking our sequence data. These columns represent positions which have a high frequency of basecalls which do not agree with the reference sequence. It is unlikely that random errors will appear in such a manner, and so, in our next analysis we will use a program to scan our alignment and identify these high frequency variants in a process called ‘variant calling’.
+          An important aspect of an effective nanopore sequencing analysis is being able to differentiate between errors, caused by the inherent error-prone nature of nanopore sequencing, and true SNPs. Configure IGV to the maximum zoom on the read view (top right corder slider). You should see something similar to the image below. You can see that there are random errors dotted around the read panel. Some positions in the alignment will have multiple reads supporting SNPs in the same location. These are possibly the variants we are looking for, and the key to unlocking our sequence data. These columns represent positions which have a high frequency of basecalls which do not agree with the reference sequence. It is unlikely that random errors will appear in such a manner, and so, in our next analysis we will use a program to scan our alignment and identify these high frequency variants in a process called ‘variant calling’, which we will cover in the next activity.
         </div>
 
         <br>
@@ -373,7 +373,7 @@
         <p><b>Minimise the IGV window, leave open the terminal which launched it. Open a new terminal, activate the nanopore environment and move to the next steps.</b></p>
 
 
-        <h4>Coverage, Depth and Variant Calling</h4>
+        <h4>Variant Calling</h4>
 
         <br>
 
@@ -411,7 +411,7 @@
 
         <p>Once the variant callerhas finished, take a look inside the VCF file to see what kind of data it contains:</p>
 
-        <pre><code>head -n 50 DMSO_variants.vcf </code></pre>
+        <pre><code>tail -n 3 DMSO_variants.vcf </code></pre>
 
         <p>Check out <a href="https://www.internationalgenome.org/wiki/Analysis/Variant%20Call%20Format/vcf-variant-call-format-version-40/#:~:text=VCF%20is%20a%20text%20file,a%20position%20in%20the%20genome.">this page</a> to unserstand the structure of a VCF file</p>
 
@@ -450,7 +450,7 @@
             Because we are working with a lab strain, there are likely few SNPs, as this reference is very closely related to the isolates we have sequenced. In future experiments however, it is very important to perform variant calling to identify possible genotypes that might confer drug resistance or SNPs that might be used for tracking transmission.
           </div>
 
-        <h4>Validation of PvDBP insertion</h4>
+        <h4>Validation of PvDBP excision</h4>
 
         <p>Now load the other two BAMs you mapped in to IGV, using the same method you used to load the DMSO sample. Load the RAP.sorted.bam and the WT.sorted.bam files. Adjust the display ratios by dragging the partitions beteen the three BAM tracks and zoom out to 50% using the zoom slider in the top right corner. Have a look at the video below if you need help. </p>
 
@@ -462,13 +462,10 @@
         
         <p>Here, you should be able to visualise all three of your alignments and compare them. What do you make of the coverage on each sample? Why do you think they appear in the way that they do?</p>
 
-        <div class="alert alert-primary">
-            <b>Optional activity</b><br>
-            When studying WGS data, you will often com across non-descript insertions. Althoguh we can prabably make a good guesss at what this is, we can investigate further to confirm our suspicions. Right click on one of the large insertions across the <b>PKA1H_060029200</b> locus in the <b>RAP</b> sample and copy the sequence data to your clipboard. Let's go to<a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi?PROGRAM=blastn&PAGE_TYPE=BlastSearch&LINK_LOC=blasthome">NCBI BLAST</a> and investigate what the origin of the sequence is. When you run BLAST, what does the output say, and does it match your prediction?
-        </div>
 
         <p>Right click the coverage plot for each BAM track and save the image to the user space. I will put a link up on the board for you to upload this image, so that you can include it as a figure in your manuscript write-up.</p>
-
+        <br>
+        <br>
 
         <h4>Optional extra activity - mapping DMSO to Pknowlesi_A1H1_WT_DiCre_PvDBP pseudogenome </h4>
 
@@ -477,7 +474,8 @@
         <pre><code>minimap2 -ax map-ont ~/data/ATMB/mapping/Pknowlesi_A1H1_WT_DiCre_PvDBP.fa ~/data/ATMB/basecalling/fastq/DMSO.porechop.fastq > DMSO_alignment_PvDBP.sam</pre></code>
 
         <p>Once you have remapped the three sequence datasets, open up a new IGV window, load the correct Pknowlesi_A1H1_WT_DiCre_PvDBP.fa reference genome, the GFF and the three new PvDBP alignments and compare them with the other IGV window, with the wild-type alignments. What can you infer from the differences in the alignments?</p>
-
+        <br>
+        <br>
 
         <h4>Optional extra activity 2 - Generating coverage plots using R</h4>
 
