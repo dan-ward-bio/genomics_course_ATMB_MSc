@@ -504,37 +504,35 @@
 
 
 
-        <pre><code>
-            # Load the packages
-            library(gridExtra)
-            library(ggplot2)
-            
-            # Load the data
-            data1 <- read.table("<b>depth_statistics_DMSO</b>", sep="\t", header=FALSE, col.names=c("Contig","Position", "Depth"))
-            data2 <- read.table("<b>depth_statistics_RAP</b>", sep="\t", header=FALSE, col.names=c("Contig","Position", "Depth"))
-            data3 <- read.table("<b>depth_statistics_WT</b>", sep="\t", header=FALSE, col.names=c("Contig","Position", "Depth"))
-            
-            # Create the plots
-            p1 <- ggplot(data1, aes(x=Position, y=Depth)) + geom_line(color="blue") + ylim(0,50) + ggtitle("<b>Dataset 1</b>") +
-              annotate("segment", x=1043441, xend=1047350, y=30, yend=30, arrow=arrow(length=unit(0.4,"cm")), color="black") +
-              annotate("text", x=1045441, y=36, label="<b>Gene name</b>", color="black")
-            
-            p2 <- ggplot(data2, aes(x=Position, y=Depth)) + geom_line(color="red")+ ylim(0,50)  + ggtitle("<b>Dataset 2</b>")+
-              annotate("segment", x=1043441, xend=1047350, y=30, yend=30, arrow=arrow(length=unit(0.4,"cm")), color="black") +
-              annotate("text", x=1045441, y=36, label="<b>Gene name</b>", color="black")
-            
-            p3 <- ggplot(data3, aes(x=Position, y=Depth)) + geom_line(color="green")+ ylim(0,50)  + ggtitle("<b>Dataset 3</b>")+
-              annotate("segment", x=1043441, xend=1047350, y=30, yend=30, arrow=arrow(length=unit(0.4,"cm")), color="black") +
-              annotate("text", x=1045441, y=36, label="<b>Gene name</b>", color="black")
-            
-            
-            # Combine the plots and adjust the layout
-            gridExtra::grid.arrange(p1, p2, p3, ncol=1)
-            
-            # Save plots to a PNG file
-            g <- arrangeGrob(p1, p2, p3, nrow=3)
-            ggsave(file="coverage_plt.png", g)
-        </code></pre>
+<pre><code># Load the packages
+library(gridExtra)
+library(ggplot2)
+
+# Load the data
+data1 <- read.table("<b>depth_statistics_DMSO</b>", sep="\t", header=FALSE, col.names=c("Contig","Position", "Depth"))
+data2 <- read.table("<b>depth_statistics_RAP</b>", sep="\t", header=FALSE, col.names=c("Contig","Position", "Depth"))
+data3 <- read.table("<b>depth_statistics_WT</b>", sep="\t", header=FALSE, col.names=c("Contig","Position", "Depth"))
+
+# Create the plots
+p1 <- ggplot(data1, aes(x=Position, y=Depth)) + geom_line(color="blue") + ylim(0,50) + ggtitle("<b>Dataset 1</b>") +
+  annotate("segment", x=1043441, xend=1047350, y=30, yend=30, arrow=arrow(length=unit(0.4,"cm")), color="black") +
+  annotate("text", x=1045441, y=36, label="<b>Gene name</b>", color="black")
+
+p2 <- ggplot(data2, aes(x=Position, y=Depth)) + geom_line(color="red")+ ylim(0,50)  + ggtitle("<b>Dataset 2</b>")+
+  annotate("segment", x=1043441, xend=1047350, y=30, yend=30, arrow=arrow(length=unit(0.4,"cm")), color="black") +
+  annotate("text", x=1045441, y=36, label="<b>Gene name</b>", color="black")
+
+p3 <- ggplot(data3, aes(x=Position, y=Depth)) + geom_line(color="green")+ ylim(0,50)  + ggtitle("<b>Dataset 3</b>")+
+  annotate("segment", x=1043441, xend=1047350, y=30, yend=30, arrow=arrow(length=unit(0.4,"cm")), color="black") +
+  annotate("text", x=1045441, y=36, label="<b>Gene name</b>", color="black")
+
+
+# Combine the plots and adjust the layout
+gridExtra::grid.arrange(p1, p2, p3, ncol=1)
+
+# Save plots to a PNG file
+g <- arrangeGrob(p1, p2, p3, nrow=3)
+ggsave(file="coverage_plt.png", g)</code></pre>
             
             
         </code></pre>
