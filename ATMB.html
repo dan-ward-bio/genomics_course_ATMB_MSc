@@ -415,7 +415,7 @@
 
         <p>Check out <a href="https://www.internationalgenome.org/wiki/Analysis/Variant%20Call%20Format/vcf-variant-call-format-version-40/#:~:text=VCF%20is%20a%20text%20file,a%20position%20in%20the%20genome.">this page</a> to understand the structure of a VCF file</p>
 
-        <p>Go back to IGV and load the VCF in to the window by navigating to the variant_calling folder through the <b>File>Load from file</b> menu, and selecting DMSO_variants.vcf</p>
+        <p>Go back to IGV and load the VCF in to the window by navigating to the <b>ATMB/variant_calling</b> folder through the <b>File>Load from file</b> menu, and selecting DMSO_variants.vcf</p>
 
         <p>Navigate to the locus of the variant by copying <b>LT727654:329600-329632</b> in to the navigation form. You should see something like that in the image below:</p>
 
@@ -486,7 +486,7 @@
         <br>
         <p>A tool we can use to asess the depth and coverage of an alignment is Samtools; a versatile package used in all facets of genomics. We will extract the depth statistics from the .bam alignment file we generated in the previous sections. This will generate a file called ‘depth_statistics_XXXX’. Samtools will scan across the alignment counting how many reads have mapped to each base in the genome.</p>
 
-        <pre><code>samtools depth ~/data/ATMB/mapping/DMSO_sorted.bam > depth_statistics_DMSO</code></pre>
+        <pre><code>samtools depth -a -r LT727653:1040496-1050000 ~/data/ATMB/mapping/DMSO_sorted.bam > depth_statistics_DMSO</code></pre>
 
         <p>Take a look at the depth_statistics file using the head command. Repeat this process for all of your alignments, making sure to change the input and output names for the 'samdools depth' command.</p>
 
@@ -497,9 +497,13 @@
 
         <div><img src="img/depth.png" class="img-fluid" alt="Responsive image"></div>
 
-        <p>Once you have initialised R, you can enter the following lines of code by copying and pasting them in to the R terminal instance. <b>Be sure to change the bold sections in the below code to reflect the files you generated with samtools. Make sure the 'Dataset' names are replaced with the correct isolate name.</b></p>
+        <p>Once you have initialised R, you can enter the following lines of code by copying and pasting them in to the R terminal instance. <b>Be sure to change the bold sections in the below code to reflect the files you generated with samtools. Make sure the 'Dataset' names are replaced with the correct isolate name. Open up a notepad and copy the code below. Edit it in the notepad to contain the correct labels, then copy it in to the R window.</b></p>
 
-        <pre><code>
+        <pre><code>featherpad</code></pre>
+
+
+
+        <p>
             # Load the packages
             library(gridExtra)
             library(ggplot2)
@@ -507,7 +511,7 @@
             # Load the data
             data1 <- read.table("<b>depth_statistics_DMSO</b>", sep="\t", header=FALSE, col.names=c("Contig","Position", "Depth"))
             data2 <- read.table("<b>depth_statistics_RAP</b>", sep="\t", header=FALSE, col.names=c("Contig","Position", "Depth"))
-            data3 <- read.table("<b>depth_statistics_RAP</b>", sep="\t", header=FALSE, col.names=c("Contig","Position", "Depth"))
+            data3 <- read.table("<b>depth_statistics_WT</b>", sep="\t", header=FALSE, col.names=c("Contig","Position", "Depth"))
             
             # Create the plots
             p1 <- ggplot(data1, aes(x=Position, y=Depth)) + geom_line(color="blue") + ylim(0,50) + ggtitle("<b>Dataset 1</b>") +
@@ -529,7 +533,7 @@
             # Save plots to a PNG file
             g <- arrangeGrob(p1, p2, p3, nrow=3)
             ggsave(file="coverage_plt.png", g)
-            
+        </p>
             
             
         </code></pre>
