@@ -198,7 +198,7 @@
             <div class="card">
               <div class = "card-header alert-warning"><strong>What is the <a href="#" title="N50" data-toggle="popover" data-trigger="hover" data-placement="top"  data-content="N50 can be described as a weighted median statistic such that 50% of the entire assembly is contained in contigs or scaffolds equal to or larger than this value.">N50</a> of the <b>passed reads (>Q7)</b> for all basecalled reads in this run?</strong></div>
           <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree">
-                N50= 9320 bp
+                N50= 9321 bp
             </div>
             <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
               <div class="card-body alert-success">
@@ -356,7 +356,7 @@
         <div><img src="img/igv_diagram.png" class="img-fluid" alt="Responsive image"></div>
 
         <div class="alert alert-primary">
-            If you are curious how GFF annotations work, you can view the raw data by entering the below command in to a new terminal window. The <b>head -n 100</b> command will show the first 100 lines of content of a given filename in the terminal windoww, providing it is human readable text, and not binary or compressed data. To learn more about the GFF format, follow <a href="https://www.ensembl.org/info/website/upload/gff.html">this link</a>
+            If you are curious how GFF annotations work, you can view the raw data by entering the below command in to a new terminal window. The <b>head -n 100</b> command will show the first 100 lines of content of a given filename in the terminal window, providing it is human readable text, and not binary or compressed data. To learn more about the GFF format, follow <a href="https://www.ensembl.org/info/website/upload/gff.html">this link</a>
           </div>
 
           <pre><code>head -n 100 ~/data/ATMB/mapping/PknowlesiA1H1.gff </code></pre>
@@ -422,29 +422,32 @@
         <div><img src="img/igv_vcf.png" class="img-fluid" alt="Responsive image"></div>
 
 
+
+        <br>
         <h4>Question 4</h4>
         <div class="accordion" id="accordionExample">
             <div class="card">
               <div class = "card-header alert-warning"><strong>Are the SNPs in a coding region? Check the GFF track. Zoom out to about 50% if you have any doubts.</strong></div>
-          <div class="card-header" id="headingFive" data-toggle="collapse" data-target="#collapseFive">
-                  <i>Yes. It's MSP1.</i>
+          <div class="card-header" id="headingNine" data-toggle="collapse" data-target="#collapseNine">
+                  <i>Yes! It's MSP1.</i>
             </div>
-            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+            <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#accordionExample">
               <div class="card-body alert-danger">
                 <strong>False</strong>: Zoom out to 50% to see if you can notice another gene on the GFF track.
               </div>
             </div>
-                <div class="card-header" id="headingSix" data-toggle="collapse" data-target="#collapseSix">
-                  <i>No, it's not in a protein-coding region.</i>
+                <div class="card-header" id="headingTen" data-toggle="collapse" data-target="#collapseTen">
+                  <i>No, it is not a protein-coding region.</i>
             </div>
-            <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+            <div id="collapseTen" class="collapse" aria-labelledby="headingTen" data-parent="#accordionExample">
               <div class="card-body alert-success">
-                <strong>True</strong>: Right answer, well done! The closes gene is PKA1H_070011100.1.
+                <strong>True</strong>: Right answer, well done! The closest gene is PKA1H_070011100.1.
               </div>
             </div>
           </div>
         </div>
         <br>
+
 
         <div class="alert alert-primary">
             Because we are working with a lab strain, there are likely few SNPs, as this reference is very closely related to the isolates we have sequenced. In future experiments however, it is very important to perform variant calling to identify possible genotypes that might confer drug resistance or SNPs that might be used for tracking transmission.
