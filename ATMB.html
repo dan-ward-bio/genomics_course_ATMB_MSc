@@ -125,7 +125,7 @@
         <p><strong>Hover over the different elements of the basecalling command to see its function. Copy the whole line in to the terminal and execute the command:</strong><p>
 
 
-        <pre><code><a href="" title="guppy_basecaller" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This is first command to call the main guppy executable.">guppy_basecaller</a> <a href="" title="Basecalling configuration file" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This is the pre-trained model used for basecalling.<br><b>dna_r10.4.1_e8.2_400bps_fast.cfg</b> is the model we will use in this case. However there are numerous models available depending on the flowcell used and the sequencing chemistry of the kit. <b>dna_r10.4.1</b> designates that we are using DNA basecalling with the R10.4.1 flowcell. <b>e8.2_400bps</b> denotes the motor protein chemistry used for sequencing and the translocation speed. This is unique to each kit used, so be sure to chose the correct one. <b>fast</b> denotes the complexity of the basecalling model to be used. The options are usually <b>fast</b>, <b>hac<b/> (high accuracy) or <b>sup</b> (super-high accuracy), the latter two of which are only suitable for machines with GPU resources.">--config dna_r10.4.1_e8.2_400bps_fast.cfg</a> <a href="" title="--trim_adapters" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller to automatically remove the sequencing adapter sequences.">--trim_adapters</a><a href="" title="--trim_adapters" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller to search for the barcode sequences so that it can subset the reads."> --detect_barcodes</a> <a href="" title="--compress_fastq " data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller to compress the outputted fastq files so that they consume less disk space.">--compress_fastq </a> <a href="" title=">--input_path" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller where to find the raw fat5 files">--input_path ~/data/ATMB/basecalling/raw_pod5_reads </a> <a href="" title="--save_path" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller where to save the compressed fastq output files">--save_path ~/data/ATMB/basecalling/fastq </a></code></pre>
+        <pre><code><a href="" title="guppy_basecaller" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This is first command to call the main guppy executable.">guppy_basecaller</a> <a href="" title="Basecalling configuration file" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This is the pre-trained model used for basecalling.<br><b>dna_r10.4.1_e8.2_400bps_fast.cfg</b> is the model we will use in this case. However there are numerous models available depending on the flowcell used and the sequencing chemistry of the kit. <b>dna_r10.4.1</b> designates that we are using DNA basecalling with the R10.4.1 flowcell. <b>e8.2_400bps</b> denotes the motor protein chemistry used for sequencing and the translocation speed. This is unique to each kit used, so be sure to chose the correct one. <b>fast</b> denotes the complexity of the basecalling model to be used. The options are usually <b>fast</b>, <b>hac<b/> (high accuracy) or <b>sup</b> (super-high accuracy), the latter two of which are only suitable for machines with GPU resources.">--config  dna_r10.4.1_e8.2_400bps_fast.cfg</a> <a href="" title="--trim_adapters" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller to automatically remove the sequencing adapter sequences.">--trim_adapters</a><a href="" title="--trim_adapters" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller to search for the barcode sequences so that it can subset the reads."> --detect_barcodes</a> <a href="" title="--compress_fastq " data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller to compress the outputted fastq files so that they consume less disk space.">--compress_fastq </a> <a href="" title=">--input_path" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller where to find the raw fat5 files">--input_path ~/data/ATMB/basecalling/raw_pod5_reads </a> <a href="" title="--save_path" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller where to save the compressed fastq output files">--save_path ~/data/ATMB/basecalling/fastq </a></code></pre>
 
         <div class="alert alert-warning">
           Hover over the basecalling model 'dna_r9.4.1_450bps_fast.cfg' in the above command to see an explanation. You can navigate to <kbd>/opt/ont/data</kbd> to see all of the models available for use. Alternatively, for simplicity, you can use the <kbd>--kit</kbd> and  <kbd>--flowcell</kbd> flags instead of defining a model. However, by default, using these arguments do not apply the most accurate basecalling models available.
@@ -469,18 +469,7 @@
         <p>Right click the coverage plot for each BAM track and save the image to the user space, with the name of the track and your own name. I will put a link up on the board for you to upload this image, so that you can include it as a figure in your manuscript write-up.</p>
         <br>
         <br>
-
-        <h4>Optional extra activity - mapping DMSO to Pknowlesi_A1H1_WT_DiCre_PvDBP pseudogenome </h4>
-
-        <p>Now that we have inferred the insertion of a floxed PvDBP into the PkDBPα locus and successful DiCre-mediated excision of the floxed region, we can confirm it by re-mapping our read data to a new reference sequence. This reference sequence contains the PvDBP ortholog gene insead of the WT PkDBP. In this section, you will repeat the above steps, but this time, using the Pknowlesi_A1H1_WT_DiCre_PvDBP.fa reference, which can be found in the 'mapping' folder. Importantly, you need to switch out the reference sequence when mapping, and be sure to change the names of the inputs and the output files to reflect that they are mapped against the PvDBP pseudogenome. Below is a hint to get you started:</p>
-
-        <pre><code>minimap2 -ax map-ont ~/data/ATMB/mapping/Pknowlesi_A1H1_WT_DiCre_PvDBP.fa ~/data/ATMB/basecalling/fastq/DMSO.porechop.fastq > DMSO_alignment_PvDBP.sam</pre></code>
-
-        <p>Once you have remapped the three sequence datasets, open up a new IGV window, load the correct Pknowlesi_A1H1_WT_DiCre_PvDBP.fa reference genome, the GFF and the three new PvDBP alignments and compare them with the other IGV window, with the wild-type alignments. What can you infer from the differences in the alignments?</p>
-        <br>
-        <br>
-
-        <h4>Optional extra activity 2 - Generating coverage plots using R</h4>
+        <h4>Generating coverage plots using R</h4>
 
 
         <p>
@@ -543,6 +532,17 @@ ggsave(file="coverage_plt.png", g)</code></pre>
         <p>You can quit R by typing:</p>
 
         <pre><code>quit()</code></pre>
+        <br>
+        <br>
+        <h4>Optional extra activity - mapping DMSO to Pknowlesi_A1H1_WT_DiCre_PvDBP pseudogenome </h4>
+
+        <p>Now that we have inferred the insertion of a floxed PvDBP into the PkDBPα locus and successful DiCre-mediated excision of the floxed region, we can confirm it by re-mapping our read data to a new reference sequence. This reference sequence contains the PvDBP ortholog gene insead of the WT PkDBP. In this section, you will repeat the above steps, but this time, using the Pknowlesi_A1H1_WT_DiCre_PvDBP.fa reference, which can be found in the 'mapping' folder. Importantly, you need to switch out the reference sequence when mapping, and be sure to change the names of the inputs and the output files to reflect that they are mapped against the PvDBP pseudogenome. Below is a hint to get you started:</p>
+
+        <pre><code>minimap2 -ax map-ont ~/data/ATMB/mapping/Pknowlesi_A1H1_WT_DiCre_PvDBP.fa ~/data/ATMB/basecalling/fastq/DMSO.porechop.fastq > DMSO_alignment_PvDBP.sam</pre></code>
+
+        <p>Once you have remapped the three sequence datasets, open up a new IGV window, load the correct Pknowlesi_A1H1_WT_DiCre_PvDBP.fa reference genome, the GFF and the three new PvDBP alignments and compare them with the other IGV window, with the wild-type alignments. What can you infer from the differences in the alignments?</p>
+        <br>
+        <br>
 
         <h4>Well done!</h4>
 
