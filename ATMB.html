@@ -246,11 +246,16 @@
 
         <pre><code>kraken --db ~/data/ATMB/kraken/KDB/ --output temp.krak ~/data/ATMB/basecalling/fastq/WT.fastq.gz</pre></code>
 
+        <br>
+        <p>We need to parse our kraken taxonomy in to a report for a future step. Run the following command:</p>
+      
+        <pre><code>kraken-report --db ~/data/ATMB/kraken/KDB/ ~/data/ATMB/kraken/temp.krak > kraken.report > </pre></code>
+
         <img src="img/kraken_1.png" class="img-fluid" alt="Responsive image">
 
 
 
-        <p>This file isn't particularly easy to interpret, so we will use a program called <a href="https://github.com/khyox/recentrifuge" target="_blank" style="color: #0881c2">Recentrifuge</a> to transform these data in to a more human-readable format.</p>
+        <p> Have a look through the files we just created using <kbd>less</kbd>. These files aren't particularly easy to interpret, so we will use a program called <a href="https://github.com/khyox/recentrifuge" target="_blank" style="color: #0881c2">Recentrifuge</a> to transform these data in to a beutiful kronagram.</p>
 
         <pre><code>rcf -k temp.krak -o kraken_output.rcf.html --nodespath ./taxdump</pre></code>
 
@@ -290,17 +295,30 @@
         <br>
 
 <br>
+
+<h4>Kraken QC - Extracting reads</h4>
         
       <p>Okay, great! Now that we know what is in our sample, let's extract our <i>Plasmodium spp.</i> reads in to a fastq subset so that we know the data that we are working with is not contaminated with anything that might confound our downstream analysis. We'll be using another piece of software for this called <a href="https://github.com/jenniferlu717/KrakenTools" target="_blank" style="color: #0881c2">KrakenTools</a>. Before we do that, we need learn a little more about a system used to refer to organisms in bioinformatic contexts.
       <br>
-      TaxIDs are unique numbers assigned to the nodes and leaves of the tree of life. Every organism and every taxonomic rank has a unique TaxID. For example, the TaxID for <i>Homo sapiens</i> is 9606. Moving a few taxonomic ranks up to 'order', in this case 'Primates' the taxid is 9443. Google any taxon name adding the term 'taxid' top the end. It should lead you to the NCBI/NIH taxonomy browser. An old looking website, yes. But it has exactly what we need. Find the taxid for <i>Plasmodium knowlesi</i>, we'll need it for the next command. </p>
+      <br>
+      TaxIDs are unique numbers assigned to the nodes and leaves of the tree of life. Every organism and every taxonomic rank has a unique TaxID. For example, the TaxID for <i>Homo sapiens</i> is 9606. Moving a few taxonomic ranks up to 'order', in this case 'Primates' the taxid is 9443. Google any taxon name adding the term 'taxid' top the end. It should lead you to the NCBI/NIH taxonomy browser. An old looking website, yes, but it has exactly what we need. Find the taxid for <i>Plasmodium knowlesi</i>, we'll need it for the next command.</p>
       </p>.
 
-      <img src="img/taxonomies.svg" class="img-fluid" alt="Responsive image">
+      <img src="img/taxonomies.svg" class="img-fluid" alt="Responsive image" style="width: 50%;">
 
 
+        <div class="alert alert-danger" role="alert">
+        Be careful! Species, subspecies and strains are easy to confuse when picking a taxid. Make sure you have the <i>Plasmodium knowlesi</i> <b>species</b> taxid and not a strain. Check the linage section on the taxonomy website if in doubt.
+        </div>
+
+        <p>Let's use KrakenTools to extract our Plasmodium reads. It will search through our FASTQ file and chack the corresponding Kraken analysis for its taxonomic assignment. We will tall it to pull our only the reads that have been assigned to the <i>Plasmodium knowlesi</i> taxon and importantly, that taxon's children. </p>
 
 
+        <pre><code><a href="" title="The read extracting script" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="Calls the main script">extract_kraken_reads.py </a><a href="" title="The input fastq file" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="The input fastq file">-s ~/data/ATMB/basecalling/fastq/WT.porechop.fastq </a><a href="" title="The input kraken file" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="The input kraken file">-k  ~/data/ATMB/kraken/temp.krak </a><a href="" title="The input kraken report file" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="A summary produced by the kraken-report tool">-r  ~/data/ATMB/kraken/kraken.report </a><a href="" title="The target taxID" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="The target taxID">-t {your taxid here} </a><a href="" title="Include children" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="A flag inidicating we'd like all of the taxa in the nodes/ranks below the given taxid">--include-children </a><a href="" title="FASTQ out" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="A flag inidicating we'd like our output to be fastq">--fastq-out </a><a href="" title="Output file" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="Where do we want the output file?">-o filtered_reads.fastq </a></code></pre>
+
+        <div class="alert alert-primary">
+          Now we have a dataset which we know only contains <i>Plasmodium knowlesi</i> reads. We have completed a crucial step in ensuring that our downstream analyses are not confounded by any off-target reads.
+        </div>
 
         <h4>Mapping and Visualisation</h4>
 
