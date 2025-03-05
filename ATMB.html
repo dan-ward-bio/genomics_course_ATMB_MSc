@@ -94,7 +94,7 @@
         <br>
         <h4>Basecalling</h4>
 
-        <p>To convert the raw data output produced by the MinION sequencing run in to a usable form we need to perform a process called basecalling. This converts the raw electronic signal which is collected as the DNA passes through the pore, in to base reads – A, C, T or G. To do this we will use a program called Guppy – a software package designed by ONT which uses <a href="https://en.wikipedia.org/wiki/Recurrent_neural_network" target="_blank" style="color: #0881c2">recurrent neural nets (RNN)</a> to interpret the raw signal, which comes in a proprietary '.pod5' format file produced by the sequencer software and convert it in to the standard .fastq format, for use downstream in our pipeline. Users also have the choice of using the experimental <a href="https://github.com/nanoporetech/bonito" target="_blank" style="color: #0881c2">Bonito</a> basecaller which gives the option of training specialised models for specific basecalling applications. As mentioned above, GPUs are used to accelerate the basecalling process. Without a GPU performing basecalling becomes a very slow process, therfore it is advised that users procure a machine with a compatable Nvidia GPU <a href="https://esr-nz.github.io/gpu_basecalling_testing/gpu_benchmarking.html" target="_blank" style="color: #0881c2">(more information on this here)</a>. <p>
+        <p>To convert the raw data output produced by the MinION sequencing run in to a usable form we need to perform a process called basecalling. This converts the raw electronic signal which is collected as the DNA passes through the pore, in to base reads – A, C, T or G. To do this we will use a program called Dorado – a software package designed by ONT which uses <a href="https://en.wikipedia.org/wiki/Recurrent_neural_network" target="_blank" style="color: #0881c2">recurrent neural nets (RNN)</a> to interpret the raw signal, which comes in a proprietary '.pod5' format file produced by the sequencer software and convert it in to the standard .fastq format, for use downstream in our pipeline. Users also have the choice of using the experimental <a href="https://github.com/nanoporetech/bonito" target="_blank" style="color: #0881c2">Bonito</a> basecaller which gives the option of training specialised models for specific basecalling applications. As mentioned above, GPUs are used to accelerate the basecalling process. Without a GPU performing basecalling becomes a very slow process, therfore it is advised that users procure a machine with a compatable Nvidia GPU <a href="https://esr-nz.github.io/gpu_basecalling_testing/gpu_benchmarking.html" target="_blank" style="color: #0881c2">(more information on this here)</a>. <p>
 
         <div class="row">
           <div class="col-sm">
@@ -120,28 +120,49 @@
           <p>Use the <kbd>ls</kbd> command to see what is inside this folder. Use <kbd>cat</kbd> to preview one of the <i>pod5</i> files. You'll find it's completely unreadable. This is because at this stage, the data is in an encoded format representing the <i>squiggle</i> signal we spoke about previously. We need to basecall this data before we can use it.</p>
         </div>
 
-        <p> Basecalling can be performed in a number of ways. There is an option to perform this while sequencing in the <a href="https://nanoporetech.com/nanopore-sequencing-data-analysis" target="_blank" style="color: #0881c2">MinKNOW GUI package</a>, however this software provides fewer options in the ways basecalling can be completed and is less powerful. Here, we will use Guppy for maximum flexibility. Since the machines we are working on do not have a GPU available we will have to use the two CPU cores available to us. Therefore, we will only basecall a subset (<1%) of the dataset as an example, and in the subsequent steps we will use a pre-basecalled output</p>
+        <p> Basecalling can be performed in a number of ways. There is an option to perform this while sequencing in the <a href="https://nanoporetech.com/nanopore-sequencing-data-analysis" target="_blank" style="color: #0881c2">MinKNOW GUI package</a>, however it is often the case that you will want to base call (or re-base call) on another device. Here, we will use the  Dorado CLI (command line interface) to illustrate this scenario. Since the machines we are working on do not have a GPU available we will have to use the CPU cores available to us. Therefore, we will only basecall a subset (<1%) of the dataset as an example, and in the subsequent steps we will use a pre-basecalled output</p>
 
         <p><strong>Hover over the different elements of the basecalling command to see its function. Copy the whole line in to the terminal and execute the command:</strong><p>
 
+          <div class="alert alert-warning">
+            Hover over the arguments in the command below to see an explanation.
+          </div>
 
-        <pre><code><a href="" title="guppy_basecaller" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This is first command to call the main guppy executable.">guppy_basecaller</a> <a href="" title="Basecalling configuration file" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This is the pre-trained model used for basecalling.<br><b>dna_r10.4.1_e8.2_400bps_fast.cfg</b> is the model we will use in this case. However there are numerous models available depending on the flowcell used and the sequencing chemistry of the kit. <b>dna_r10.4.1</b> designates that we are using DNA basecalling with the R10.4.1 flowcell. <b>e8.2_400bps</b> denotes the motor protein chemistry used for sequencing and the translocation speed. This is unique to each kit used, so be sure to chose the correct one. <b>fast</b> denotes the complexity of the basecalling model to be used. The options are usually <b>fast</b>, <b>hac<b/> (high accuracy) or <b>sup</b> (super-high accuracy), the latter two of which are only suitable for machines with GPU resources.">--config  dna_r10.4.1_e8.2_400bps_fast.cfg</a> <a href="" title="--trim_adapters" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller to automatically remove the sequencing adapter sequences.">--trim_adapters</a><a href="" title="--trim_adapters" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller to search for the barcode sequences so that it can subset the reads."> --detect_barcodes</a> <a href="" title="--compress_fastq " data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller to compress the outputted fastq files so that they consume less disk space.">--compress_fastq </a> <a href="" title=">--input_path" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller where to find the raw fat5 files">--input_path ~/data/ATMB/basecalling/raw_pod5_reads </a> <a href="" title="--save_path" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller where to save the compressed fastq output files">--save_path ~/data/ATMB/basecalling/fastq </a></code></pre>
+        <pre><code><a href="" title="Main executable" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This is first command to call the main dorado executable.">dorado basecaller</a>
+        
+          <a href="" title="Basecalling model accuracy" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This is the pre-trained model used for basecalling.<br><b>fast</b> denotes the complexity of the basecalling model to be used. The options available are <b>fast</b>, <b>hac<b/> (high accuracy) or <b>sup</b> (super-high accuracy), the latter two of which are only suitable for machines with GPU resources.">fast</a>
 
-        <div class="alert alert-warning">
-          Hover over the basecalling model 'dna_r9.4.1_450bps_fast.cfg' in the above command to see an explanation. You can navigate to <kbd>/opt/ont/data</kbd> to see all of the models available for use. Alternatively, for simplicity, you can use the <kbd>--kit</kbd> and  <kbd>--flowcell</kbd> flags instead of defining a model. However, by default, using these arguments do not apply the most accurate basecalling models available.
-        </div>
+          <a href="" title="Input directory" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the base caller not to trim the barcodes off the sequence outputs. This is important so that we can demultiplex our sample.">--no-trim</a><a href="" title="--no-trim" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the base caller not to trim the barcodes off the sequence outputs. This is important so that we can demultiplex our sample.">~/data/ATMB/basecalling/basecalling/raw_pod5_reads</a>
+
+          <a href="" title="--no-trim" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the base caller not to trim the barcodes off the sequence outputs. This is important so that we can demultiplex our sample.">--no-trim</a>
+          
+          
+          <a href="" title=">Output path" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller where to find the raw pod5 files">~/data/ATMB/basecalling/fastq/</a>
 
 
         <p> You should now see the bascalling process begin, and a progress bar appear. This may take some time depending on the performance of your machine.<p>
 
-        <img src="img/basecall_1.png" class="img-fluid" alt="Responsive image">
+        <img src="img/basecall_1_2.png" class="img-fluid" alt="Responsive image">
 
-        <p><strong>When the process in completed, you will find the basecalled reads in a .fastq formatted file. Navigate there by typing the following in to the terminal: </strong> <p>
+        <p><strong>When the process in completed, you will find the basecalled reads in a .bam formatted alignment file in the FASTQ folder. While this format retains <i>the most</i> amount of information from the basecalling, you will usually want to work with a FASTQ formatted file. We will now de-multiplex our reads and output them in to FASTQ format: </strong> <p>
+
+        <p> Let's use the dorado demultiplexing application to find barcodes in our reads and produce separate barcoded FASTQ files for us to look at.<p>
+
+          <pre><code><a href="" title="Main executable" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This is first command to call the main dorado executable.">dorado demux</a>
+        
+            <a href="" title="Output directory" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="the location for the output files">--output-dir ~/data/ATMB/basecalling/fastq</a>
+  
+            <a href="" title="Barcoding kit" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the base caller not to trim the barcodes off the sequence outputs. This is important so that we can demultiplex our sample.">--no-trim</a><a href="" title="--no-trim" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the tool which set of barcodes to look for.">--kit-name SQK-RBK114-96</a>
+  
+            <a href="" title="--emit-fastq" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the demultiplexer to output the files in the FASTQ format, instead of BAM.">--emit-fastq</a>
+
+            <a href="" title="--emit-summary" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the demultiplexer to output a sequencing summary, which is useful for our QC steps later.">--emit-summary</a>
+          
+            <a href="" title=">Input path" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="This flag tells the basecaller where to find the raw pod5 files">~/data/ATMB/basecalling/fastq/*.bam</a>
+  
 
 
-
-
-        <pre><code>cd ~/data/ATMB/basecalling/fastq/pass</pre></code>
+        <pre><code>cd ~/data/ATMB/basecalling/fastq</pre></code>
 
         <div class="alert alert-warning">
           <p>Use the <kbd>ls</kbd> command to see what is inside this folder. This directory holds the fastq formatted 'pass' reads  from the basecalling process. The reads have a quality score > 7. Use <kbd> <a href="#" title="zcat" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="zcat is used in the same way as the cat command, except it is capabale of opening gzip compressed files">zcat</a> FILENAME | head</kbd> to preview the compresssed <i>fastq</i> file. Unlike the pod5 files, these are human-readable and contain all of the read data required for downstream analyses. Can you identify any of the common elements of a .fastq format files - similar to the ones you may have encountered in previous sessions? Click <a href="https://en.wikipedia.org/wiki/FASTQ_format" target="_blank" style="color: #0881c2">here</a> to find out more about the FASTQ format.</p>
