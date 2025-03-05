@@ -226,8 +226,9 @@
 <br>
         <h4>Kraken QC</h4>
 
-        <p>Another method of quality control is to check our reads for sequence contamination from other 'off-target' organisms. This is important in order to firstly, understand how effective your DNA extraction, enrichment and sequencing was. And secondly, to prevent anomalous reads from being incorporated in to assemblies.</p>
-        <p>Using our basecalled reads we will perform an analysis using Kraken. Kraken is a tool which sifts through each read in a .fastq file and crosschecks it against a database of microorganism genomes. The output is a taxonomic assignment of each read, enabling to identify if any contamination has occurred. In this case we will be looking for any reads which do not belong to the <i>Plasmodium knowlesi</i> genome.</p>
+        <p>Another method of quality control is to check our reads for sequence contamination from other 'off-target' organisms ie. Reads which are not Plasmodium. These contaminants can be introduced by a range of means, such as specimen handling, 'kit-omes' (contamination DNA in kit reagents) your DNA extraction method leading to enrichment/depletion and importatnly, in the context of pathogen sequencing, host genetic materials. It's important to understand and remove these contaminants as they may confound downstream analyses.</p>
+        
+        <p>With our basecalled reads we will perform taxonomic classification using a tool called Kraken. While the inner workings of Kraken is outside of the scope of this activity, know that Kraken sifts through short fragments (31 bp default) of sequences in a .fastq file, which called k-mers (k=bp - in this case called '31-mers') and crosschecks it against a database of microorganism genomes k-mers. The output is an summary taxonomic assignment of each read. In this case we will be looking for any reads which do not belong to the <i>Plasmodium knowlesi</i> taxon.</p>
 
         <p><strong>Let’s navigate to the kraken folder to begin the analysis:</strong></p>
 
