@@ -226,7 +226,7 @@
 <br>
         <h4>Kraken QC</h4>
 
-        <p>Another method of quality control is to check our reads for sequence contamination from other 'off-target' organisms ie. Reads which are not Plasmodium. These contaminants can be introduced by a range of means, such as specimen handling, 'kit-omes' (contamination DNA in kit reagents) your DNA extraction method leading to enrichment/depletion and importatnly, in the context of pathogen sequencing, host genetic materials. It's important to understand and remove these contaminants as they may confound downstream analyses.</p>
+        <p>Another method of quality control is to check our reads for sequence contamination from other 'off-target' organisms ie. Reads which are not <i>Plasmodium</i>. These contaminants can be introduced by a range of means, such as specimen handling, 'kit-omes' (contamination DNA in kit reagents) your DNA extraction method leading to enrichment/depletion and importatnly, in the context of pathogen sequencing, host genetic materials. It's important to understand and remove these contaminants as they may confound downstream analyses.</p>
         
         <p>With our basecalled reads we will perform taxonomic classification using a tool called Kraken. While the inner workings of Kraken is outside of the scope of this activity, know that Kraken sifts through short fragments (31 bp default) of sequences in a .fastq file, which called k-mers (k=bp - in this case called '31-mers') and crosschecks it against a database of microorganism genomes k-mers. The output is an summary taxonomic assignment of each read. In this case we will be looking for any reads which do not belong to the <i>Plasmodium knowlesi</i> taxon.</p>
 
@@ -274,7 +274,7 @@
             </div>
             <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
               <div class="card-body alert-danger">
-                <strong>False</strong>: Open up <i>temp.krak.rcf.full.html</i> in firefox and browse the results
+                <strong>False</strong>: Open up the HTML file in firefox and browse the results. Look for the 'off-target' organisms in the Kronagram.
               </div>
             </div>
                 <div class="card-header" id="headingSix" data-toggle="collapse" data-target="#collapseSix">
@@ -306,13 +306,13 @@
         Be careful! Species, subspecies and strains are easy to confuse when picking a taxid. Make sure you have the <i>Plasmodium</i> <b>genus</b> taxid and not a species or strain. Check the linage section on the taxonomy website if in doubt.
         </div>
 
-        <p>Let's use KrakenTools to extract our Plasmodium reads. It will search through our FASTQ file and check the corresponding Kraken analysis for its taxonomic assignment. We will tall it to pull our only the reads that have been assigned to the <i>Plasmodium</i> taxon and importantly, that taxon's children. </p>
+        <p>Let's use KrakenTools to extract our <i>Plasmodium</i> reads. It will search through our FASTQ file and check the corresponding Kraken analysis for its taxonomic assignment. We will tell it to pull out only the reads that have been assigned to the <i>Plasmodium</i> taxon and importantly, that taxon's children (the taxa benieth it in the tree). </p>
 
 
         <pre><code><a href="" title="The read extracting script" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="Calls the main script">extract_kraken_reads.py </a><a href="" title="The input fastq file" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="The input fastq file">-s ~/data/ATMB/basecalling/fastq/WT.porechop.fastq </a><a href="" title="The input kraken file" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="The input kraken file">-k  ~/data/ATMB/kraken/WT.kraken </a><a href="" title="The input kraken report file" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="A summary produced by the kraken-report tool">-r  ~/data/ATMB/kraken/WT.report </a><a href="" title="The target taxID" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="The target taxID">-t {your taxid here} </a><a href="" title="Include children" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="A flag inidicating we'd like all of the taxa in the nodes/ranks below the given taxid">--include-children </a><a href="" title="FASTQ out" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="A flag inidicating we'd like our output to be fastq">--fastq-out </a><a href="" title="Output file" data-toggle="popover" data-trigger="hover" data-placement="top" style="color:white" data-content="Where do we want the output file?">-o filtered_reads.fastq </a></code></pre>
 
         <div class="alert alert-primary">
-          Now we have a dataset which we know only contains <i>Plasmodium knowlesi</i> reads. We have completed a crucial step in ensuring that our downstream analyses are not confounded by any off-target reads.
+          Now we have a dataset which we know only contains <i>Plasmodium</i> reads. We have completed a crucial step in ensuring that our downstream analyses are not confounded by any off-target reads.
         </div>
 
         <h4>Mapping and Visualisation</h4>
@@ -340,15 +340,15 @@
 
         <br>
 
-        <p>As before, we now need to convert our alignment .sam file in to a .bam formatted file:</p>
+        <p>We now need to convert our alignment .sam file in to a .bam formatted file. This compresses the file so that it takes up less space:</p>
 
         <pre><code>samtools view -q 10 -b -S DMSO_alignment.sam > DMSO_alignment.bam</code></pre>
 
-        <p>Next, we need to sort the .bam formatted file:</p>
+        <p>Next, we need to sort the .bam formatted file. This step reduces the time it takes for programs to find consecutive reads in a reference alignment. Like alphabetising your books - same deal:</p>
 
         <pre><code>samtools sort DMSO_alignment.bam -o DMSO_sorted.bam</code></pre>
 
-        <p>Finally we need to index the sorted bam file:</p>
+        <p>Finally we need to index the sorted bam file. Sticking with the book analogy - think index:</p>
 
         <pre><code>samtools index DMSO_sorted.bam</code></pre>
 
@@ -500,19 +500,21 @@
 
 
         <p>
-             Two key metrics are often required for asessing the success of sequenceing, and confirming the presence of any structural varaints such as those resulting from the excision of genes. These metrics are reference <b>coverage</b> and read <b>depth</b>. Genome coverage tells us the percentage of the reference which has had sequencing reads aligned to it, which allows us to identify any regions that may have not been successfully sequenced. Depth is an equally as important metric: it tells us how many inidividual reads have mapped to the same position. This is a particularly important statistic if you intend on doing variant calling, as regions with low depth may fall prey to false calls due to the random errors we have in our nanopore data. With a high enough read depth, we can be fairly sure that these errors will be ignored. If you find this confusing, think of the alignment as a 2-dimentional plot. The X-axis is the length of the genome, this relates to coverage. The depth is the Y-axis, how deep the reads are at a given position.
+             Two key metrics are often required for asessing the success of sequenceing, and confirming the presence of any structural varaints such as those resulting from the excision of genes. These metrics are reference <b>coverage</b> and read <b>depth</b>. Genome coverage tells us the percentage of the reference which has had sequencing reads aligned to it, which allows us to identify any regions that may have not been sequenced - either becase they have been missed, or the section is missing from the genome alltogether. Depth is an equally as important metric: it tells us how many inidividual reads have mapped to the same position. This is a particularly important statistic if you intend on doing variant calling, as regions with low depth may fall prey to false calls due to the random errors we have in our nanopore data. With a high enough read depth, we can be fairly sure that these errors will be ignored. If you find this confusing, think of the alignment as a 2-dimentional plot. The X-axis is the length of the genome, this relates to coverage. The depth is the Y-axis, how deep the reads are at a given position.
         </p>
         <br>
         <p>A tool we can use to asess the depth and coverage of an alignment is Samtools; a versatile package used in all facets of genomics. We will extract the depth statistics from the .bam alignment file we generated in the previous sections. This will generate a file called ‘depth_statistics_XXXX’. Samtools will scan across the alignment counting how many reads have mapped to each base in the genome.</p>
 
         <pre><code>samtools depth -a -r LT727653:1040496-1050000 ~/data/ATMB/mapping/DMSO_sorted.bam > depth_statistics_DMSO</code></pre>
 
+        <div><img src="img/coverage_depth.png" class="img-fluid" alt="Responsive image"></div>
+
         <p>Take a look at the depth_statistics file using the head command. Repeat this process for all of your alignments, making sure to change the input and output names for the 'samdools depth' command.</p>
 
         <p>Next, we will use the R statistical package to generate a plot based on the data samtools generated. Simply type ‘R’ in to the terminal to initialise the R command interface. </p>
         <pre><code>conda activate nanopore</code></pre>
         <pre><code>cd ~/data/ATMB/mapping</code></pre>
-        <pre><code>featherpad &</code></pre>
+        <pre><code>gedit &</code></pre>
         <pre><code>R</code></pre>
 
         <div><img src="img/depth.png" class="img-fluid" alt="Responsive image"></div>
