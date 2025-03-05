@@ -117,7 +117,7 @@
         <pre><code>cd ~/data/ATMB/basecalling/raw_pod5_reads/ </pre></code>
 
         <div class="alert alert-warning">
-          <p>Use the <kbd>ls</kbd> command to see what is inside this folder. Use <kbd>head</kbd> to preview one of the <i>pod5</i> files. As you might find, it's completely unreadable. This is because at this stage, the data is in a binary format representing the <i>squiggle</i> signal we spoke about previously. We need to basecall this data before we can use it.</p>
+          <p>Use the <kbd>ls</kbd> command to see what is inside this folder. Use <kbd>cat</kbd> to preview one of the <i>pod5</i> files. You'll find it's completely unreadable. This is because at this stage, the data is in an encoded format representing the <i>squiggle</i> signal we spoke about previously. We need to basecall this data before we can use it.</p>
         </div>
 
         <p> Basecalling can be performed in a number of ways. There is an option to perform this while sequencing in the <a href="https://nanoporetech.com/nanopore-sequencing-data-analysis" target="_blank" style="color: #0881c2">MinKNOW GUI package</a>, however this software provides fewer options in the ways basecalling can be completed and is less powerful. Here, we will use Guppy for maximum flexibility. Since the machines we are working on do not have a GPU available we will have to use the two CPU cores available to us. Therefore, we will only basecall a subset (<1%) of the dataset as an example, and in the subsequent steps we will use a pre-basecalled output</p>
