@@ -127,13 +127,13 @@
     <h5>head</h5>
     <p>
         Change to the tb directory and have a look at the files. Hopefully you will be able to see the
-        <strong>tb.fasta</strong> file. The file is just a very large text file which stores the sequence data of the
+        <strong>/home/atmb/data/atmb/mapping/pknowlesi_a1h1_wt_dicre.fa</strong> file. The file is just a very large text file which stores the sequence data of the
         <i>M. tuberculosis</i> reference genome. We can use <kbd>head</kbd> to take a look at the first few lines
         of a file. Let's try it:
     </p>
     <pre><code>cd tb
 ls
-head tb.fasta</code></pre>
+head /home/atmb/data/atmb/mapping/pknowlesi_a1h1_wt_dicre.fa</code></pre>
     <p>
         Hopefully you will see something like this:
     </p>
@@ -153,7 +153,7 @@ CGCCGCCGCCTTGGCGATCGCAGAAGCACCCGCCCGCGCTTACAACCCCCTGTTCATCTGGGGCGAGTCC</samp>
         We can see that by default <kbd>head</kbd> prints out the first 10 lines. We can modify this number by
         providing an additional parameter.
     </p>
-    <pre><code>head -5 tb.fasta</code></pre>
+    <pre><code>head -5 /home/atmb/data/atmb/mapping/pknowlesi_a1h1_wt_dicre.fa</code></pre>
     <p>
         This command it will print out the first five lines instead. Here we have used an optional parameter (the program
         will still function properly without it). Optional parameters are usually given by providing two values,
@@ -168,7 +168,7 @@ CGCCGCCGCCTTGGCGATCGCAGAAGCACCCGCCCGCGCTTACAACCCCCTGTTCATCTGGGGCGAGTCC</samp>
         Another tool that we can use to view text files is the <kbd>less</kbd> command. Let's try view the reference
         file again with this method.
     </p>
-    <pre><code>less tb.fasta</code></pre>
+    <pre><code>less /home/atmb/data/atmb/mapping/pknowlesi_a1h1_wt_dicre.fa</code></pre>
     <p>
         This will open an interactive viewer which fills up the screen. You can move up and down the file using the
         up and down keys on the keyboard. When you are finished viewing, hit the <kbd>q</kbd> key to quit the
@@ -180,7 +180,7 @@ CGCCGCCGCCTTGGCGATCGCAGAAGCACCCGCCCGCGCTTACAACCCCCTGTTCATCTGGGGCGAGTCC</samp>
         If we need to copy a file we can use the <kbd>cp</kbd> command. We need to give two arguments: the file
         we want to copy and the filename of the copy. Let's try it:
     </p>
-    <pre><code>cp tb.fasta tb_copy</code></pre>
+    <pre><code>cp /home/atmb/data/atmb/mapping/pknowlesi_a1h1_wt_dicre.fa tb_copy</code></pre>
     <div class="alert alert-primary" role="alert">
         <div>Two things to note here:</div>
         <ol>
@@ -294,17 +294,17 @@ CGCCGCCGCCTTGGCGATCGCAGAAGCACCCGCCCGCGCTTACAACCCCCTGTTCATCTGGGGCGAGTCC</samp>
         help and quit. For example, lets run <kbd>head</kbd> without passing the number of lines to the <kbd>-n</kbd>
         flag:
     </p>
-    <pre><code>head -n tb.fasta</code></pre>
+    <pre><code>head -n /home/atmb/data/atmb/mapping/pknowlesi_a1h1_wt_dicre.fa</code></pre>
     <p>
         You should see an error similar to that displayed below:
     </p>
     <div class="alert alert-info" role="alert">
-        <samp>head: invalid number of lines 'tb.fasta'</samp>
+        <samp>head: invalid number of lines '/home/atmb/data/atmb/mapping/pknowlesi_a1h1_wt_dicre.fa'</samp>
     </div>
     <p>
         The error is a bit cryptic but from the <i>illegal line count</i>, we can see that whatever parameter
         we passed to <kbd>-n</kbd> (which determines how many lines are printed) is not a valid value. It turns
-        out that this value always has to be a number, however since we left out that parameter it parses <b>tb.fasta</b>
+        out that this value always has to be a number, however since we left out that parameter it parses <b>/home/atmb/data/atmb/mapping/pknowlesi_a1h1_wt_dicre.fa</b>
         as the value and that causes the error.
     </p>
     <hr>
